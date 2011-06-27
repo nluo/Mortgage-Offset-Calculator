@@ -1,0 +1,90 @@
+div{
+	font-family:Calibri;
+	}
+#calculator{
+	border:2px inherit;
+	width:700px;
+	height:500px;
+	background:#900;
+	border-radius:20px;
+	-moz-border-radius:20px; /* Firefox 3.6 and earlier */
+	margin-left:10px;
+	margin-top:15px;
+	}
+#context{
+	margin-left:11px;
+	}
+#detail,#result{
+	border:solid 4px #999;
+	background:#CCC;
+	border-radius:20px;
+	-moz-border-radius:20px;
+	height:470px;
+	margin-top:10px;}
+#detail{
+	width:350px;
+	}
+#result{
+	width:310px;
+	margin-right:11px;
+	}
+#_detail_title{
+	font-size:17px;
+	margin-left:10px;
+	margin-top:20px;
+	}
+#_loan_amount{
+	margin-top:20px;}
+#_loan_amount_title{
+	margin-top:15px;}
+#_offset_amount{
+	margin-top:20px;}
+#_offset_amount_title{
+	margin-top:15px;}
+._left_text{
+	margin-left:15px;
+	font-size:14px;}
+#_mortgage{
+	margin-top:85px;}
+#_normal_interest_rate{
+	margin-top:165px;}
+#_offset_interest_rate{
+	margin-top:165px;}
+#_RFrequency{
+	margin-top:245px;}
+#_RType{
+	margin-top:285px;}
+#_calculating{
+	margin-top:360px;
+	margin-left:100px;}
+._right_text{
+	margin-left:8px;
+	font-size:14px;}
+#placeholder{
+	margin-left:8px;
+	width:296px;
+	height:250px;
+	background-color:#FFF;}
+#_mortgage_repayment_result{
+	margin-left:10px;
+	height:60px;
+	font-size:10px;}
+#_total_repayment_bar{
+	margin-top:26px;
+	border:#0F0 solid thin;
+	margin-left:25px;
+	width:250px;
+	height:10px;
+	}
+#_box{
+	background-color:#0F0;
+	height:10px;
+	width:0px;}
+#x{
+	float:left;
+	margin-left:20px;
+	color:#0F0;}
+#y{
+	float:right;
+	margin-right:20px;
+	color:#999;}
