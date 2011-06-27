@@ -149,18 +149,19 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 		LA2[n2]=0;
 		
 		var i=0;
-		result1.push(0,ILA);
-		document.write(result1[0]+"\n");
+		result1.push([0,ILA]);
+		//document.write(result1[0]+"\n");
 		for(i=0;i<N;i++){
 			result1.push([(i+1)/period,LA1[i]]);
-			document.write(result1[i+1]+"\n");
+			//result1.push([(i+1),(i*2)]);
+			//document.write(result1[i+1]+"\n");
 		}
 		
-		result2.push(0,ILA);
-		document.write(result2[0]+"\n");
+		result2.push([0,ILA]);
+		//document.write(result2[0]+"\n");
 		for(i=0;i<n2;i++){
 			result2.push([(i+1)/period,LA2[i]]);
-			document.write(result2[i+1]+"\n");
+			//document.write(result2[i+1]+"\n");
 		}
 		//alert(N+" "+n2);
 		plot=$.plot($("#placeholder"), 
