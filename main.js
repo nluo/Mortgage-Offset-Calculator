@@ -122,47 +122,43 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 			}
 			n2++;
 		}
-		var remainder = -1*LA2[n2];
+		var remainder = -1*LA2[n2-1];
 		var TP=[];
-		TP.push(N*TNP);
 		TP.push(N);
-		TP.push(n2*TOP);
+		TP.push(TNP);
 		TP.push(n2);
-		alert("N="+N+"\nTNP="+TNP+" \nn2="+n2+"\nTOP="+TOP);
+		TP.push(TOP);
+		TP.push(remainder);
+		//alert("r="+remainder);
+		//alert("N="+N+"\nTNP="+TNP+" \nn2="+n2+"\nTOP="+TOP);
 		LA2[n2]=0;
 		
 		var i=0;
 		result1.push([0,ILA]);
-		//document.write(result1[0]+"\n");
 		for(i=0;i<N;i++){
 			result1.push([(i+1)/period,LA1[i]]);
-			//result1.push([(i+1),(i*2)]);
-			//document.write(result1[i+1]+"\n");
 		}
 		
 		result2.push([0,ILA]);
-		//document.write(result2[0]+"\n");
 		for(i=0;i<n2;i++){
 			result2.push([(i+1)/period,LA2[i]]);
-			//document.write(result2[i+1]+"\n");
 		}
 		
-		$("#_mortgage_repayment_pay").html(function(){
-			if (frequency=="Weekly"){
-				period=52;
-			}
-			else if (frequency=="Fortnightly"){
-				period=26;
-			}
-			else if (frequency=="Monthly"){
-				period=12;
-			}
-		//alert(TotalPayment[0]+" "+TotalPayment[1]+" "+TotalPayment[2]+" "+TotalPayment[3]);
-		alert("2");
-		return "Estimate of interest saved $"+Math.round(TP[0]-TP[2])+".<br />Estimate of years/months saved "+Math.round((TP[1]-TP[3])/period)+" years.<br />Estimate of new loan term "+Math.round(TP[3]/period)+" years.";
-		//return "Estimate of interest saved $"+(TotalPayment[0]-TotalPayment[2])+".<br />Estimate of years/months saved //"+((TotalPayment[1]-TotalPayment[3])*period)+" years.<br />Estimate of new loan term "+(TotalPayment[3]*period)+" years.";
-	});
-		
+		$("#_estimate_interest").html(function(){
+		return "Normal loan payment: <b>$<span class='_blue'>"+(Math.round(TP[1]*TP[0]*100)/100)+"</span></b><br />With offset loan payment: <b>$<span class='_blue'>"+(Math.round(((TP[3]*TP[2])-TP[4])*100)/100)+"</span></b>";
+		});
+		$("#_estimate_time").html(function(){
+		return "Estimate of normal loan term: <b><span class='_blue'>"+(Math.round(TP[0]/period*100)/100)+"</span></b> years.<br />Estimate of with offset loan term: <b><span class='_blue'>"+(Math.round(TP[2]/period*100)/100)+"</span></b> years.";
+		});
+		$("#_estimate_difference").html(function(){
+		var payment_difference = Math.round(((TP[1]*TP[0])-((TP[3]*TP[2])-TP[4]))*100)/100;
+		if(payment_difference>0){
+			return "Difference in payments: <b>$<span class='_red'>"+(payment_difference)+"</span></b><br />Estimate of with offset loan term: <b><span class='_green'>"+(Math.round((TP[0]-TP[2])/period*100)/100)+"</span></b> years.";
+		}
+		else{
+			return "Difference in loan payments: <b>$<span class='_green'>"+(-1*payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(Math.round((TP[0]-TP[2])/period*100)/100)+"</span></b> years.";
+		}
+		});
 		alert("3");
 		plot=$.plot($("#placeholder"), 
 		[ {
