@@ -45,7 +45,6 @@ function calculateRepayment(loan_amount,offset_amount,loan_year,frequency,normal
 	
 	term_interest1=normal_interest/(period*100);
 	term_interest2=offset_interest/(period*100);
-	//alert(term_interest);
 	payment1=Math.round(loan_amount*term_interest1*Math.pow((1+term_interest1),power)/(Math.pow((1+term_interest1),power)-1));
 	payment2=Math.round(loan_amount*term_interest2*Math.pow((1+term_interest2),power)/(Math.pow((1+term_interest2),power)-1));
 
@@ -60,8 +59,6 @@ function calculateRepayment(loan_amount,offset_amount,loan_year,frequency,normal
 function drawGraph(ILA,OA,ML,NI,OI,frequency){
 	//Initial Loan Amount, Offset Amount, Mortgage Length, Normal Interest, Offset Interest
 	var plot;
-	//var N=0,LA1=0,n2=0,LA2=0;
-	//var TP=[];
 	$(function(){
 		var period=0; 
 		if (frequency=="Weekly"){
@@ -129,8 +126,6 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 		TP.push(n2);
 		TP.push(TOP);
 		TP.push(remainder);
-		//alert("r="+remainder);
-		//alert("N="+N+"\nTNP="+TNP+" \nn2="+n2+"\nTOP="+TOP);
 		LA2[n2]=0;
 		
 		var i=0;
@@ -152,14 +147,14 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 		});
 		$("#_estimate_difference").html(function(){
 		var payment_difference = Math.round(((TP[1]*TP[0])-((TP[3]*TP[2])-TP[4]))*100)/100;
-		if(payment_difference>0){
-			return "Difference in payments: <b>$<span class='_red'>"+(payment_difference)+"</span></b><br />Estimate of with offset loan term: <b><span class='_green'>"+(Math.round((TP[0]-TP[2])/period*100)/100)+"</span></b> years.";
+		var term_difference = Math.round((TP[0]-TP[2])/period*100)/100;
+		if(payment_difference<0){
+			return "Difference in payments: <b>$<span class='_red'>"+(-1*payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(term_difference)+"</span></b> years.";
 		}
 		else{
-			return "Difference in loan payments: <b>$<span class='_green'>"+(-1*payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(Math.round((TP[0]-TP[2])/period*100)/100)+"</span></b> years.";
+			return "Difference in loan payments: <b>$<span class='_green'>"+(payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(term_difference)+"</span></b> years.";
 		}
 		});
-		alert("3");
 		plot=$.plot($("#placeholder"), 
 		[ {
 			data: result1,
@@ -192,7 +187,7 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 						return val;									
 				}
 			}
-		});alert("4");
+		});
 		
 		var legends = $("#placeholder.legendLabel");
     	legends.each(function () {
@@ -201,10 +196,8 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 		});						
 		var updateLegendTimeout = null;
 		var latestPosition = null;
-
-    
-		alert("1");
-    					function updateLegend() {
+		
+    	function updateLegend() {
 
         					updateLegendTimeout = null;
         					var pos = latestPosition;

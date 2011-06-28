@@ -49,7 +49,16 @@ div{
 #_normal_interest_rate{
 	margin-top:165px;}
 #_offset_interest_rate{
-	margin-top:165px;}
+	margin-top:205px;}
+._blue{
+	color:#00F;
+}
+._green{
+	color:#0F0;
+}
+._red{
+	color:#F00;
+}
 #_RFrequency{
 	margin-top:245px;}
 #_RType{
