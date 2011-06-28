@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	$("#loan_amount").val('600000');
-	$("#offset_amount").val('100000');
-	//var loan_amount=$("#loan_amount").val();
+	$("#offset_amount").val('10000');
 	
 	// initialise variables
  	var loan_amount=$("#loan_amount").val();
@@ -12,7 +11,6 @@ $(document).ready(function(){
 	var offset_interest=$("#offset_interest").val();
 	
 	calculateRepayment(loan_amount,offset_amount,loan_year,frequency,normal_interest,offset_interest);
-	//drawGraph(loan_amount,loan_year,frequency,loan_repaymentType,loan_interest);
 
 	$("#button1").click(function(){
 		$("#placeholder").fadeOut(1);
@@ -55,33 +53,17 @@ function calculateRepayment(loan_amount,offset_amount,loan_year,frequency,normal
 
 	file_put_contents('Result.json', $text);
 	*/
-
-	$("#_mortgage_repayment_pay").html(function(){
-		if (frequency=="Weekly"){
-			period=52;
-		}
-		else if (frequency=="Fortnightly"){
-			period=26;
-		}
-		else if (frequency=="Monthly"){
-			period=12;
-		}
-		//var TotalPayment = 
-		drawGraph(loan_amount,offset_amount,loan_year,normal_interest,offset_interest,frequency);
-		//alert(TotalPayment[0]+" "+TotalPayment[1]+" "+TotalPayment[2]+" "+TotalPayment[3]);
-		return "Estimate of interest saved $";
-		//+(TotalPayment[0]-TotalPayment[2])+".<br />Estimate of years/months saved "+((TotalPayment[1]-TotalPayment[3])*period)+" years.<br //>Estimate of new loan term "+(TotalPayment[3]*period);
-	});
-	
+	drawGraph(loan_amount,offset_amount,loan_year,normal_interest,offset_interest,frequency);
 	//echo "Your ".strtolower(frequency)." mortgage repayment<br /><h2>$".payment."</h2>";
 }
-				
-	
+					
 function drawGraph(ILA,OA,ML,NI,OI,frequency){
 	//Initial Loan Amount, Offset Amount, Mortgage Length, Normal Interest, Offset Interest
 	var plot;
+	//var N=0,LA1=0,n2=0,LA2=0;
+	//var TP=[];
 	$(function(){
-		var period=0,PP=0; //Periodical Payment 
+		var period=0; 
 		if (frequency=="Weekly"){
 			period=52;
 		}
@@ -94,8 +76,8 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 		var TNI=NI/(period*100); //Term Normal Interest
 		var TOI=OI/(period*100); //Term Offset Interest
 		var power=ML*period;
-		TNP=ILA*TNI*Math.pow((1+TNI),power)/(Math.pow((1+TNI),power)-1);
-		TOP=ILA*TOI*Math.pow((1+TOI),power)/(Math.pow((1+TOI),power)-1);
+		var TNP=ILA*TNI*Math.pow((1+TNI),power)/(Math.pow((1+TNI),power)-1);
+		var TOP=ILA*TOI*Math.pow((1+TOI),power)/(Math.pow((1+TOI),power)-1);
 		
 		//without offset
 		var LA1=[],IP=[],ALP1=[],result1=[]; //Loan Amount1,Interest Payment,Actual Loan Payment1
@@ -141,11 +123,12 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 			n2++;
 		}
 		var remainder = -1*LA2[n2];
-		//var TP=[];
-		//TP.push(N*TOP);
-		//TP.push(N);
-		//TP.push((n2+1)*TOP);
-		//TP.push(n2+1);
+		var TP=[];
+		TP.push(N*TNP);
+		TP.push(N);
+		TP.push(n2*TOP);
+		TP.push(n2);
+		alert("N="+N+"\nTNP="+TNP+" \nn2="+n2+"\nTOP="+TOP);
 		LA2[n2]=0;
 		
 		var i=0;
@@ -163,7 +146,24 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 			result2.push([(i+1)/period,LA2[i]]);
 			//document.write(result2[i+1]+"\n");
 		}
-		//alert(N+" "+n2);
+		
+		$("#_mortgage_repayment_pay").html(function(){
+			if (frequency=="Weekly"){
+				period=52;
+			}
+			else if (frequency=="Fortnightly"){
+				period=26;
+			}
+			else if (frequency=="Monthly"){
+				period=12;
+			}
+		//alert(TotalPayment[0]+" "+TotalPayment[1]+" "+TotalPayment[2]+" "+TotalPayment[3]);
+		alert("2");
+		return "Estimate of interest saved $"+Math.round(TP[0]-TP[2])+".<br />Estimate of years/months saved "+Math.round((TP[1]-TP[3])/period)+" years.<br />Estimate of new loan term "+Math.round(TP[3]/period)+" years.";
+		//return "Estimate of interest saved $"+(TotalPayment[0]-TotalPayment[2])+".<br />Estimate of years/months saved //"+((TotalPayment[1]-TotalPayment[3])*period)+" years.<br />Estimate of new loan term "+(TotalPayment[3]*period)+" years.";
+	});
+		
+		alert("3");
 		plot=$.plot($("#placeholder"), 
 		[ {
 			data: result1,
@@ -196,7 +196,7 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 						return val;									
 				}
 			}
-		});
+		});alert("4");
 		
 		var legends = $("#placeholder.legendLabel");
     	legends.each(function () {
@@ -207,7 +207,7 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 		var latestPosition = null;
 
     
-
+		alert("1");
     					function updateLegend() {
 
         					updateLegendTimeout = null;
@@ -253,9 +253,7 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 									}*/
 							if (!updateLegendTimeout)
             					updateLegendTimeout = setTimeout(updateLegend, 50);
-							
 						});
 						});
 						
-					//return TP;
 				}
