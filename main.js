@@ -149,10 +149,10 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 		var payment_difference = Math.round(((TP[1]*TP[0])-((TP[3]*TP[2])-TP[4]))*100)/100;
 		var term_difference = Math.round((TP[0]-TP[2])/period*100)/100;
 		if(payment_difference<0){
-			return "Difference in payments: $ <b><span class='_red'>"+(-1*payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(term_difference)+"</span></b> years.";
+			return "Difference in payments: $ <b><span class='_red'>"+(-1*payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(parseInt(term_difference))+"</span></b> year(s) <b><span class='_green'>"+(Math.round(((term_difference)*12)%12))+"</span></b> month(s)";
 		}
 		else{
-			return "Difference in loan payments: $ <b><span class='_green'>"+(payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(term_difference)+"</span></b> years.";
+			return "Difference in loan payments: $ <b><span class='_green'>"+(payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(parseInt(term_difference))+"</span></b> year(s) <b><span class='_green'>"+(Math.round(((term_difference)*12)%12))+"</span></b> month(s)";
 		}
 		});
 		plot=$.plot($("#placeholder"), 
