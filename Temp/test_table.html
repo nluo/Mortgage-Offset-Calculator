@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" rel="stylesheet" />
 <style type="text/css">
 #placeholder{
@@ -10,9 +11,10 @@
 </style>
 <script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
-<script type="text/javascript" src="flot/jquery.flot.js"></script>
+<script type="text/javascript" src="../flot/jquery.flot.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	var plot;
 	// Fill the blank of input
 	for (var date=1;date<=10;date++){
 		$("#input_date"+date).val(date);
@@ -46,26 +48,23 @@ $(document).ready(function(){
 			expenses_array[k]=temp+date_array[k];
 			temp=expenses_array[k];
 			period_expenses_array.push([k,temp]);
-		}
-		
+		} 
 		//Drawing the diagram
 		plot=$.plot($("#placeholder"), 
 		[ {
 			data: period_expenses_array,
 		    color: "#06f206",
-		    lines: {  fill: true } 
+		    lines: {  fill: false } 
 		    }
-			], 
+			],
 			{ 
 				series:{
 					lines: { show:true}
 				},
-				grid: { hoverable:true, autoHighlight: true},
      			xaxis: { min: 0},
 				yaxis: { min: 0}
 			
-			});
-				
+			});		
 		});
 });
 </script>
