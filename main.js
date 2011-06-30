@@ -140,19 +140,19 @@ function drawGraph(ILA,OA,ML,NI,OI,frequency){
 		}
 		
 		$("#_estimate_interest").html(function(){
-		return "Normal loan payment: <b>$<span class='_blue'>"+(Math.round(TP[1]*TP[0]*100)/100)+"</span></b><br />With offset loan payment: <b>$<span class='_blue'>"+(Math.round(((TP[3]*TP[2])-TP[4])*100)/100)+"</span></b>";
+		return "Normal loan payment: $ <b><span class='_blue'>"+(Math.round(TP[1]*TP[0]*100)/100)+"</span></b><br />With offset loan payment:  $ <b><span class='_blue'>"+(Math.round(((TP[3]*TP[2])-TP[4])*100)/100)+"</span></b>";
 		});
 		$("#_estimate_time").html(function(){
-		return "Estimate of normal loan term: <b><span class='_blue'>"+(Math.round(TP[0]/period*100)/100)+"</span></b> years.<br />Estimate of with offset loan term: <b><span class='_blue'>"+(Math.round(TP[2]/period*100)/100)+"</span></b> years.";
+		return "Estimate of normal loan term: <br /><b><span class='_blue'>"+(parseInt(TP[0]/period))+"</span></b> year(s) <b><span class='_blue'>"+Math.round((TP[0]%period)*12)+ "</span></b> month(s).<br />Estimate of with offset loan term: <br /><b><span class='_blue'>"+(parseInt(TP[2]/period))+"</span></b> year(s) <b><span class='_blue'>"+Math.round(((TP[2]/period)*12)%12)+ "</span></b> month(s).";
 		});
 		$("#_estimate_difference").html(function(){
 		var payment_difference = Math.round(((TP[1]*TP[0])-((TP[3]*TP[2])-TP[4]))*100)/100;
 		var term_difference = Math.round((TP[0]-TP[2])/period*100)/100;
 		if(payment_difference<0){
-			return "Difference in payments: <b>$<span class='_red'>"+(-1*payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(term_difference)+"</span></b> years.";
+			return "Difference in payments: $ <b><span class='_red'>"+(-1*payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(term_difference)+"</span></b> years.";
 		}
 		else{
-			return "Difference in loan payments: <b>$<span class='_green'>"+(payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(term_difference)+"</span></b> years.";
+			return "Difference in loan payments: $ <b><span class='_green'>"+(payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(term_difference)+"</span></b> years.";
 		}
 		});
 		plot=$.plot($("#placeholder"), 
