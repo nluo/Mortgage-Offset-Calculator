@@ -3,8 +3,8 @@ div{
 	}
 #calculator{
 	border:2px inherit;
-	width:700px;
-	height:520px;
+	width:1040px;
+	height:540px;
 	
 	
 	border-radius:20px;
@@ -19,22 +19,28 @@ div{
 	background-image: url('img/logo-transparent.png') ;
 	background-repeat:no-repeat;
 }
+
 #context{
 	margin-left:11px;
 	}
-#detail,#result{
+#detail,#result1,#result2{
 	border:solid 4px #999;
 
 	border-radius:20px;
 	-moz-border-radius:20px;
-	height:490px;
+	height:510px;
 	margin-top:10px;}
 #detail{
 	width:350px;
 	}
-#result{
+
+#result1{
 	width:310px;
-	margin-right:11px;
+	margin-right:10px;
+	}
+#result2{
+	width:310px;
+	margin-right:10px;
 	}
 #_detail_title{
 	font-size:17px;
@@ -77,11 +83,15 @@ div{
 ._right_text{
 	margin-left:8px;
 	font-size:14px;}
-#placeholder{
+#placeholder1{
 	margin-left:8px;
 	width:296px;
 	height:250px;
-	
+	}
+#placeholder2{
+	margin-left:8px;
+	width:296px;
+	height:250px;
 	}
 #_mortgage_repayment_result{
 	margin-left:10px;
