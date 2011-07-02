@@ -289,7 +289,7 @@ function drawGraph2(initial_loan_amount,initial_offset_amount,initial_loan_term,
 			return "Offset amount varies:<br />$ <b><span class='_blue'>0</span></b> ~ $ <b><span class='_blue'>"+initial_loan_amount+"</span></b><br />Offset loan repayment varies:<br />$ <b><span class='_blue'>"+Math.round(total_offset_payment[0]*100)/100+"</span></b> ~ $ <b><span class='_blue'>"+initial_loan_amount;
 		});
 		$("#_estimate_difference2").html(function(){
-			return "As long as there is more than $ <b><span class='_blue'>"+Math.round(min_amount*100)/100+"</span></b> in the offset account, the total repayment will be less than total repayment of normal loan.";
+			return "As long as there is more than $ <b><span class='_blue'>"+min_id+"</span></b> in the offset account, the total repayment will be less than total repayment of normal loan.";
 		});
 		plot=$.plot($("#placeholder2"), 
 		[ {
