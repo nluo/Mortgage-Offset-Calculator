@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="css/ui-lightness/jquery-ui-1.8.13.custom.css" rel="stylesheet" />
+<style type="text/css">
+#placeholder{
+	width:296px;
+	height:250px;
+	background-color:#FFF;}
+</style>
+<script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
+<script type="text/javascript" src="../flot/jquery.flot.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var plot;
+	// Fill the blank of input
+	for (var date=1;date<=10;date++){
+		$("#input_date"+date).val(date);
+		$("#input_amount"+date).val(date);
+		}
+	
+	// Select and display dates
+	$( ".datepicker" ).datepicker({dateFormat:'d'});
+		
+		
+	$("#button1").click(function(){
+		// Printing the array of 30 days period
+		
+		var date_array=new Array();
+		var expenses_array=new Array();
+		var period_expenses_array=[];
+		var temp=0; // For storing the previous amount
+		
+		// Initial the value of array
+		for (var j=0;j<=30;j++){
+			date_array[j]=0;
+			}
+		
+		// Store the amount in date_array with corresponding date
+		for (var a=0;a<=10;a++){
+			date_array[$("#input_date"+a).val()] += 1*$("#input_amount"+a).val();
+			}
+		
+		// Calculating the sum of previous amount and store in period_expenses_array
+		for (var k=0;k<=30;k++){
+			expenses_array[k]=temp+date_array[k];
+			temp=expenses_array[k];
+			period_expenses_array.push([k,temp]);
+		} 
+		//Drawing the diagram
+		plot=$.plot($("#placeholder"), 
+		[ {
+			data: period_expenses_array,
+		    color: "#06f206",
+		    lines: {  fill: false } 
+		    }
+			],
+			{ 
+				series:{
+					lines: { show:true}
+				},
+     			xaxis: { min: 0},
+				yaxis: { min: 0}
+			
+			});		
+		});
+});
+</script>
+<title>Untitled Document</title>
+</head>
+
+<body>
+<table width="420" border="0px" cellspacing="0" cellpadding="0" frame="box">
+	<tr>
+    	<th scope="col">Date</th>
+        <th scope="col">Category</th>
+        <th scope="col">Amount</th>
+    </tr>
+  <script type="text/javascript">
+	for (var i=1;i<=10;i++){
+		// For date
+		document.write("<tr align='center'><td><input type='text' id='input_date"+i+"' class='datepicker' size='10'> ");
+		// For category
+		document.write("</td><td><select id='input_category"+i+"'><option>Water bill</option><option>Phone bill</option><option>Electricity bill</option><option>Gas bill</option><option>Other</option></select></td>");
+		// For amount
+		document.write("<td>$<input id='input_amount"+i+"' type='text' size='15'/></td></tr>");
+	}
+	
+  </script>
+
+</table>
+<button id="button1">click</button>
+<div id="test"></div>
+<div id="result"><div>
+
+<div id="placeholder">
+</div>
+</body>
+</html>

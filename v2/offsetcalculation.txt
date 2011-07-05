@@ -1,0 +1,74 @@
+function drawGraph(ILA,ML,IR,OA,frequency,rtype){
+	//Initial Loan Amount, Mortgage Length, Interest Rate, Offset Amount
+	var plot;
+	$(function(){
+		var period=0,PP=0; //Periodical Payment 
+		var LA1=[],IP=[],ALP1=[],result1=[]; //Loan Amount1,Interest Payment,Actual Loan Payment1 
+		var LA2=[],IA=[],AOIP=[],ALP2=[],result2=[]; //Loan Amount2,Interested Amount,After Offset Interest Payment,Actual Loan Payment2
+		if (frequency=="Weekly"){
+			period=52;
+		}
+		else if (frequency=="Fortnightly"){
+			period=26;
+		}
+		else if (frequency=="Monthly"){
+			period=12;
+		}
+		var a=interest/(period*100);
+		var power=mortgage*period;
+		PP=ILA*a*Math.pow((1+a),power)/(Math.pow((1+a),power)-1);
+		
+		//without offset
+		var N=ML*period;
+		for(var n=0;n<N;n++){
+			if(n==0){
+				IP.push(ILA*IR);
+			}
+			else{
+				IP.push(LA1[n-1]*IR);
+			}
+			ALP1.push(PP-IP[n]);
+			if(n==0){
+				LA1.push(ILA-ALP1[n]);
+			}
+			else{
+				LA1.push(LA1[n-1]-ALP1[n]);
+			}
+		}
+		LA1[N-1]=0;
+		
+		//with offset
+		var n2=0; LA2[0]=1,IA[0]=0;
+		while(LA2[n2]=<0){
+			if(n2==0){
+				IA.push(ILA-OA);
+			}
+			else{
+				IA.push(LA2[n2-1]-OA);
+			}
+			if(IA[n2]<0){
+				IA[n2]=0;
+			}
+			AOIP.push(IA[n2]*IR);
+			ALP2.push(PP-AOIP[n2]);
+			if(n2==0){
+				LA2.push(ILA-ALP2[n2]);
+			}
+			else{
+				LA2.push(LA2[n2-1]-ALP[n2]);
+			}
+			n2++;
+		}
+		LA2[n2]=0;
+		result1.push(0,ILA);
+		for(var i=0;i<N;i++){
+			result1.push(i+1,LA[i]);
+		}
+		result2.push(0,ILA);
+		for(var i=0;i<=n2;i++){
+			result2.push(i+1,LA[i]);
+		}
+	}
+	//need plot section
+}
+		

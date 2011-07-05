@@ -1,0 +1,132 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<link rel="stylesheet" type="text/css" href="style.css" />
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="flot/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="flot/jquery.js"></script>
+<script type="text/javascript" src="flot/jquery.flot.js"></script>
+<script type="text/javascript" src="flot/jquery.flot.crosshair.js"></script>
+<!--script type="text/javascript" src="jquery.numberformatter.js"></script>
+<script src="jquery.alphanumeric.plus.js" type="text/javascript"></script-->
+<script type="text/javascript" src="main.js"></script>
+<title>Mortgage Offset Calculator</title>
+</head>
+
+<body>
+<div id="wrapper">
+
+	<div id="calculator">
+		
+        <div id="context">
+    		<div id="detail" style="float:left;">
+            <form>
+            	<div id="_detail_title">
+                	Your loan scenario
+                </div>
+                
+            	<div id="_loan_amount">
+                	<div id="_loan_amount_title" class="_left_text" style="float:left;">
+                    Loan amount:
+                    </div>
+                    <div id="_loan_amount_box" style="float:right;">
+                    $&nbsp;<input id="loan_amount" type="text" name="loan_amount" size="13" style="margin-right:59px; margin-top:10px;" />
+                    </div>
+                </div>
+				<div id="_offset_amount">
+                	<div id="_offset_amount_title" class="_left_text" style="float:left;">
+                    Offset amount:
+                    </div>
+                    <div id="_offset_amount_box" style="float:right;">
+                    $&nbsp;<input id="offset_amount" type="text" name="offset_amount" size="13" style="margin-right:59px; margin-top:10px;" />
+                    </div>
+                </div>
+                <div id="_mortgage">
+                	<div id="_mortgage_title" class="_left_text" style="float:left;">
+                    Mortgage term you prefer<br /> (0~40)
+                    </div>
+                    <div id="_mortgage_box"  style="float:right; margin-right:12px;">
+                    <input type="number" id="loan_year" class="input_detail" name="mortgage" min="0"max="40" value="30" size="13"/>year(s)
+                    </div>
+                </div>
+                <div id="_normal_interest_rate">
+                	<div id="_normal_interest_rate_title" class="_left_text" style="float:left;">Normal Interest Rate<br /> (3.00~8.00)
+                    </div>
+                    <div id="_normal_interest_rate_box" style="float:right; margin-right:10px;">
+                    <input type="number" id="normal_interest" class="input_detail" name="normal_interest" min="3.00" max="8.00" step="0.01" value="6.00" size="13" />% p.a
+                    </div>
+                </div>
+                <div id="_offset_interest_rate">
+                	<div id="_offset_interest_rate_title" class="_left_text" style="float:left;">With Offset Interest Rate<br /> (3.00~8.00)
+                    </div>
+                    <div id="_offset_interest_rate_box" style="float:right; margin-right:10px;">
+                    <input type="number" id="offset_interest" class="input_detail" name="offset_interest" min="3.00" max="8.00" step="0.01" value="8.00" size="13" />% p.a
+                    </div>
+                </div>
+                <div id="_RFrequency">
+               	 	<div id="_RFrequency_title"  class="_left_text" style="float:left;">
+                    Repayment frequency
+                    </div>
+                    <div id="_RFrequency_box" style="float:right;">
+                        <select id="loan_repaymentFrequency" class="input_detail" name="frequency" style="width:136px; margin-right:37px; font-family:Calibri;">
+                            <option>Weekly</option>
+                            <option>Fortnightly</option>
+                            <option>Monthly</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="_calculating">
+                <button type="button" id="button1" >Start Calculating!</button>
+                </form>
+                </div>
+            </div>
+			<div id="results" style="float:right;">
+            <div id="result1" style="float:left;">
+            	<div id="_result_title1" class="_right_text" style="margin-top:10px;">
+                Normal and With Offset Loan - Repayment and Term
+                </div>
+                <div id="_difference_color1" class="_right_text">
+                <img src="With_Offset.png">&nbsp;With Offset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="Without_Offset.png">&nbsp;Without Offset
+                </div>
+                <div id="placeholder1">
+                </div>
+                <div id="_estimate_interest_result1">
+					<span id="_estimate_interest1"></span>
+                </div>
+                <hr />
+                <div id="_estimate_time_result1">
+                	<span id="_estimate_time1"></span>
+                </div>
+				<hr />
+                <div id="_estimate_difference_result1">
+					<span id="_estimate_difference1"></span>
+                </div>
+            </div>
+			<div id="result2" style="float:right;">
+            	<div id="_result_title2" class="_right_text" style="margin-top:10px;">
+                Normal and With Offset Loan - Offset Amount
+                </div>
+                <div id="_difference_color2" class="_right_text">
+                <img src="With_Offset.png">&nbsp;With Offset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="Without_Offset.png">&nbsp;Without Offset
+                </div>
+                <div id="placeholder2">
+                </div>
+                <div id="_estimate_interest_result2">
+					<span id="_estimate_interest2"></span>
+                </div>
+                <hr />
+                <div id="_estimate_time_result2">
+                	<span id="_estimate_time2"></span>
+                </div>
+				<hr />
+                <div id="_estimate_difference_result2">
+					<span id="_estimate_difference2"></span>
+                </div>
+            </div>
+			</div>
+        </div>
+	</div>
+	</div>
+</body>
+</html>

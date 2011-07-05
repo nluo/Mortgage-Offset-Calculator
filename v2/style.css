@@ -1,0 +1,118 @@
+div{
+	font-family:Calibri;
+	}
+#calculator{
+	border:2px inherit;
+	width:1040px;
+	height:540px;
+	
+	
+	border-radius:20px;
+	-moz-border-radius:20px; /* Firefox 3.6 and earlier */
+	margin-left:10px;
+	margin-top:15px;
+	}
+	
+#wrapper{
+	width:700px;
+	height:500px;
+	background-image: url('img/logo-transparent.png') ;
+	background-repeat:no-repeat;
+}
+
+#context{
+	margin-left:11px;
+	}
+#detail,#result1,#result2{
+	border:solid 4px #999;
+
+	border-radius:20px;
+	-moz-border-radius:20px;
+	height:510px;
+	margin-top:10px;}
+#detail{
+	width:350px;
+	}
+
+#result1{
+	width:310px;
+	margin-right:10px;
+	}
+#result2{
+	width:310px;
+	margin-right:10px;
+	}
+#_detail_title{
+	font-size:17px;
+	margin-left:10px;
+	margin-top:20px;
+	}
+#_loan_amount{
+	margin-top:20px;}
+#_loan_amount_title{
+	margin-top:15px;}
+#_offset_amount{
+	margin-top:20px;}
+#_offset_amount_title{
+	margin-top:15px;}
+._left_text{
+	margin-left:15px;
+	font-size:14px;}
+#_mortgage{
+	margin-top:85px;}
+#_normal_interest_rate{
+	margin-top:165px;}
+#_offset_interest_rate{
+	margin-top:205px;}
+._blue{
+	color:#00F;
+}
+._green{
+	color:#0F0;
+}
+._red{
+	color:#F00;
+}
+#_RFrequency{
+	margin-top:245px;}
+#_RType{
+	margin-top:285px;}
+#_calculating{
+	margin-top:360px;
+	margin-left:100px;}
+._right_text{
+	margin-left:8px;
+	font-size:14px;}
+#placeholder1{
+	margin-left:8px;
+	width:296px;
+	height:250px;
+	}
+#placeholder2{
+	margin-left:8px;
+	width:296px;
+	height:250px;
+	}
+#_mortgage_repayment_result{
+	margin-left:10px;
+	height:60px;
+	font-size:10px;}
+#_total_repayment_bar{
+	margin-top:26px;
+	border:#0F0 solid thin;
+	margin-left:25px;
+	width:250px;
+	height:10px;
+	}
+#_box{
+	background-color:#0F0;
+	height:10px;
+	width:0px;}
+#x{
+	float:left;
+	margin-left:20px;
+	color:#0F0;}
+#y{
+	float:right;
+	margin-right:20px;
+	color:#999;}
