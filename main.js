@@ -145,10 +145,10 @@ function drawGraph1(initial_loan_amount,offset_amount,initial_loan_term,normal_i
 			var payment_difference = Math.round(((account_result[1]*account_result[0])-((account_result[3]*account_result[2])-account_result[4]))*100)/100;
 			var term_difference = Math.round((account_result[0]-account_result[2])/period*100)/100;
 			if(payment_difference<0){
-				return "Difference in loan repayments: $ <b><span class='_red'>"+(-1*payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(parseInt(term_difference))+"</span></b> year(s) <b><span class='_green'>"+(Math.round(((term_difference)*12)%12))+"</span></b> month(s)";
+				return "With offset is <b>more expensive</b> by: $ <b><span class='_blue'>"+(-1*payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(parseInt(term_difference))+"</span></b> year(s) <b><span class='_green'>"+(Math.round(((term_difference)*12)%12))+"</span></b> month(s)";
 			}
 			else{
-				return "Difference in loan repayments: $ <b><span class='_green'>"+(payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(parseInt(term_difference))+"</span></b> year(s) <b><span class='_green'>"+(Math.round(((term_difference)*12)%12))+"</span></b> month(s)";
+				return "With offset is <b>cheaper</b> by: $ <b><span class='_blue'>"+(payment_difference)+"</span></b><br />Difference in loan terms: <b><span class='_green'>"+(parseInt(term_difference))+"</span></b> year(s) <b><span class='_green'>"+(Math.round(((term_difference)*12)%12))+"</span></b> month(s)";
 			}
 		});
 		plot=$.plot($("#placeholder1"), 
@@ -166,7 +166,7 @@ function drawGraph1(initial_loan_amount,offset_amount,initial_loan_term,normal_i
 				lines: { show:true}
 			},
 		
-			crosshair: { mode: "x", lineWidth:10 },
+			//crosshair: { mode: "x", lineWidth:10 },
 			grid: { hoverable:true, autoHighlight: false},
 			//xaxis: { min: 0},
 			yaxis: {
@@ -277,7 +277,7 @@ function drawGraph2(initial_loan_amount,initial_offset_amount,initial_loan_term,
 				min_id=offset_amount;
 			}
 		}
-		var scale = 10000;
+		var scale = 100;
 		for(var i=0;i<=parseInt(initial_loan_amount/scale);i++){
 			result1.push([(i*scale),total_normal_payment]);
 			result2.push([(i*scale),total_offset_payment[(i*scale)]]);
@@ -286,7 +286,7 @@ function drawGraph2(initial_loan_amount,initial_offset_amount,initial_loan_term,
 			return "Normal loan amount: $ <b><span class='_blue'>"+initial_loan_amount+"</span></b><br />Normal loan repayment: $ <b><span class='_blue'>"+Math.round(total_normal_payment*100)/100+"</span></b>";
 		});
 		$("#_estimate_time2").html(function(){
-			return "Offset amount varies:<br />$ <b><span class='_blue'>0</span></b> ~ $ <b><span class='_blue'>"+initial_loan_amount+"</span></b><br />Offset loan repayment varies:<br />$ <b><span class='_blue'>"+Math.round(total_offset_payment[0]*100)/100+"</span></b> ~ $ <b><span class='_blue'>"+initial_loan_amount;
+			return "Offset amount varies:<br />$ <b><span class='_blue'>0</span></b> ~~ $ <b><span class='_blue'>"+initial_loan_amount+"</span></b><br />Offset loan repayment varies:<br />$ <b><span class='_blue'>"+Math.round(total_offset_payment[0]*100)/100+"</span></b> ~~ $ <b><span class='_blue'>"+initial_loan_amount;
 		});
 		$("#_estimate_difference2").html(function(){
 			return "As long as there is more than $ <b><span class='_blue'>"+min_id+"</span></b> in the offset account, the total repayment will be less than total repayment of normal loan.";
@@ -306,7 +306,7 @@ function drawGraph2(initial_loan_amount,initial_offset_amount,initial_loan_term,
 				lines: { show:true}
 			},
 		
-			crosshair: { mode: "x", lineWidth:10 },
+			//crosshair: { mode: "x", lineWidth:10 },
 			grid: { hoverable:true, autoHighlight: false},
 			xaxis: {
 				min: 0, 
