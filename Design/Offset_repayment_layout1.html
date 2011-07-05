@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+#container{
+	width:1000px;
+	height:600px;
+}
+#buttons{
+	width:1000px;
+}
+#page1{
+	width:800px;
+	height:570px;
+	margin-left:100px;
+	float:left;
+	position:absolute;
+}
+#expenses_title{
+	margin-left:230px;
+	vertical-align:middle;
+	font-size:50px;
+}
+#table1{
+	float:left;
+}
+#table2{
+	float:left;
+}
+#page2{
+	opacity:0;
+	width:800px;
+	height:570px;
+	margin-left:-2000px;
+	float:left;
+	position:absolute;
+	border:#060 7px solid;
+	font-family:Calibri;
+	font-size:13px;
+}
+#repayment_result{
+	width:800px;
+	height:320px;
+	border-bottom:#666 2px solid;
+}
+#repayment_result_saving{
+	width:210px;
+	height:300px;
+	margin-left:5px;
+	margin-top:5px;
+	float:left;
+	background-color:#F00;
+}
+#repayment_result_offset{
+	width:210px;
+	height:300px;
+	margin-left:5px;
+	margin-top:5px;
+	float:left;
+	background-color:#090;
+}
+#repayment_result_offset_visa{
+	width:210px;
+	height:300px;
+	margin-left:5px;
+	margin-top:5px;
+	float:left;
+	background-color:#FF0;
+}
+#repayment_result_select{
+	width:130px;
+	height:100px;
+	margin-left:10px;
+	margin-top:50px;
+	float:left;
+	background-color:#F0F;
+}
+#repayment_detail{}
+#repayment_detail_withoutoffset{
+	width:250px;
+	height:248px;
+	border-right:#999 5px solid;
+	margin-left:10px;
+	float:left;
+}
+#repayment_detail_withoffset{}
+#placeholder{
+	width:296px;
+	height:250px;
+}
+</style>
+<script type="text/javascript" src="../flot/jquery.js"></script>
+<script type="text/javascript" src="../flot/jquery.flot.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#button1").click(function(){
+		$("#page2").animate({marginLeft:"200px"},1);
+		$("#page1").animate({marginLeft:"0px",opacity:0},1000);
+		$("#page2").animate({marginLeft:"100px",opacity:1},1000);
+	});
+	$("#button2").click(function(){
+		$("#page2").animate({marginLeft:"200px",opacity:0},1000);
+		$("#page2").animate({marginLeft:"-2000px",opacity:0},1);
+		$("#page1").animate({marginLeft:"100px",opacity:1},1000);
+	});
+	// Fill the blank of input
+	for (var date=1;date<=20;date++){
+		$("#input_date"+date).val(date);
+		$("#input_amount"+date).val(date);
+		}
+	
+	// Select and display dates
+	//$( ".datepicker" ).datepicker({dateFormat:'d'});
+		
+		
+	$("#button3").click(function(){
+		// Printing the array of 30 days period
+		var date_array=new Array();
+		var expenses_array=new Array();
+		var period_expenses_array=[];
+		var temp=0; // For storing the previous amount
+		
+		// Initial the value of array
+		for (var j=0;j<=30;j++){
+			date_array[j]=0;
+			}
+		
+		// Store the amount in date_array with corresponding date
+		for (var a=0;a<=10;a++){
+			date_array[$("#input_date"+a).val()] += 1*$("#input_amount"+a).val();
+			}
+		
+		// Calculating the sum of previous amount and store in period_expenses_array
+		for (var k=0;k<=30;k++){
+			expenses_array[k]=temp+date_array[k];
+			temp=expenses_array[k];
+			period_expenses_array.push([k,temp]);
+		}
+		
+		//Drawing the diagram
+		plot=$.plot($("#placeholder"), 
+		[ {
+			data: period_expenses_array,
+		    color: "#06f206",
+		    lines: {  fill: true } 
+		    }
+			], 
+			{ 
+				series:{
+					lines: { show:true}
+				},
+				grid: { hoverable:true, autoHighlight: true},
+     			xaxis: { min: 0},
+				yaxis: { min: 0}
+			
+			});
+		
+		});
+		
+});
+</script>
+<title>Untitled Document</title>
+</head>
+
+<body>
+
+<div id="container">
+ <div id="page1">
+ <div id="expenses_title"><b>Your expenses</b></div>
+ <br />
+ <div id="table1">
+ 	<table width="400" border="0px" cellspacing="0" cellpadding="5px" frame="box">
+			<tr>
+    			<th scope="col">Date</th>
+        		<th scope="col">Category</th>
+                <th scope="col">Frequency</th>
+        		<th scope="col">Amount</th>
+    		</tr>
+  			<script type="text/javascript">
+			for (var i=1;i<=10;i++){
+			// For date
+			document.write("<tr align='center'><td><input type='text' id='input_date"+i+"' class='datepicker' size='5'> </td>");
+			// For category
+			document.write("<td><select id='input_category"+i+"'><option>Water bill</option><option>Phone bill</option><option>Electricity bill</option><option>Gas bill</option><option>Other</option></select></td>");
+			// For frequency
+			document.write("<td><select id='input_frequency"+i+"'> <option>Weekly</option><option>Quarterly</option><option>Yearly</option></select></td>");
+			
+			// For amount
+			document.write("<td>$<input id='input_amount"+i+"' type='text' size='7'/></td></tr>");
+			}
+			</script>
+</table>
+</div>
+<div id="table2">
+<table width="400" border="0px" cellspacing="0" cellpadding="5px" frame="box">
+			<tr>
+    			<th scope="col">Date</th>
+        		<th scope="col">Category</th>
+                <th scope="col">Frequency</th>
+        		<th scope="col">Amount</th>
+    		</tr>
+  			<script type="text/javascript">
+			for (var i=11;i<=20;i++){
+			// For date
+			document.write("<tr align='center'><td><input type='text' id='input_date"+i+"' class='datepicker' size='5'> ");
+			// For category
+			document.write("</td><td><select id='input_category"+i+"'><option>Water bill</option><option>Phone bill</option><option>Electricity bill</option><option>Gas bill</option><option>Other</option></select></td>");
+			// For frequency
+			document.write("<td><select id='input_frequency"+i+"'> <option>Weekly</option><option>Quarterly</option><option>Yearly</option></select></td>");
+			// For amount
+			document.write("<td>$<input id='input_amount"+i+"' type='text' size='7'/></td></tr>");
+			}
+			</script>
+</table>
+</div>
+
+ </div>
+ 
+ <div id="page2">
+ 
+ <div id="repayment_result">
+    	<div id="repayment_result_saving">
+        </div>
+        <div id="repayment_result_offset">
+        </div>
+        <div id="repayment_result_offset_visa">
+        </div>
+        <div id="repayment_result_select">
+        	<form>
+            	<input type="checkbox" name="repayment_type" value="Saving">Saving account<br /><br />
+                <input type="checkbox" name="repayment_type" value="Offset">Offset account<br /><br />
+                <input type="checkbox" name="repayment_type" value="Visa">Offset with VISA
+            </form>
+        </div>
+    </div>
+    <div id="repayment_detail">
+    	<div id="repayment_detail_withoutoffset">
+        	<br />
+            <label for="loan_amount">Loan amount:</label>
+            $<input type="text" size="13" value="600000"/>
+            <br />
+            <br />
+            <label for="loan_year">Mortgage term:</label>
+            <input type="number" size="13" />%
+            <br />
+            <br />
+            <label for="repayment_frequency">Repayment frequency</label>
+            <select>
+            	<option>Weekly</option>
+            	<option>Fornightly</option>
+            	<option>Monthly</option>
+            </select>
+            <br />
+            <br />
+            <input type="checkbox" name="repayment_type" value="Saving">Saving account<br /><br />
+                <input type="checkbox" name="repayment_type" value="Offset">Offset account<br /><br />
+                <input type="checkbox" name="repayment_type" value="Visa">Offset with VISA
+        </div>
+        <div id="repayment_detail_withoffset">
+        </div>
+    </div>
+ </div>
+
+</div>
+<div id="buttons">
+	<button id="button1" class="buttons">click1</button>
+    <button id="button2" class="buttons" style="float:right;">click2</button>
+    <button id="button3" class="buttons">click3</button>
+</div>
+</body>
+</html>
