@@ -11,13 +11,13 @@
 		margin-top: 10px;
 	}
 	
-	form { �
-	 �background-color: #CCCCCC; �
-	 �color: #000000; �
-	 �border: 1px solid #999999; �
-	 �font-family: Verdana, Arial, Helvetica, sans-serif; �
-	 �font-size: 10px; �
-	 �text-align: right; �
+	form {
+	 background-color: #CCCCCC; 
+	 color: #000000; 
+	 border: 1px solid #999999; 
+	 font-family: Verdana, Arial, Helvetica, sans-serif; 
+	 font-size: 10px; 
+	 text-align: right; 
 	}
 </style>
 <!---include libaries--->
@@ -39,8 +39,9 @@
 			
 			var data=$(this).serializeObject();
 			
-			var month=new Date(data.date[1]);
-			alert(month.getMonth());
+			var month=new Date(data.date[0]);
+			alert(month.getMonth()+1);
+			//alert(month.getMonth());
 			console.log($(this).serializeObject());
 			//console.log($(this).serializeArray());
 			

@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="../ui_css/ui-lightness/jquery-ui-1.8.13.custom.css" rel="stylesheet" />
 <style type="text/css">
 #container{
 	width:1000px;
@@ -11,7 +12,7 @@
 	width:1000px;
 }
 #page1{
-	width:800px;
+	width:950px;
 	height:570px;
 	margin-left:100px;
 	float:left;
@@ -26,7 +27,15 @@
 	float:left;
 }
 #table2{
+	margin-left:10px;
 	float:left;
+}
+th{
+	color:#FFF;
+	background-color:#56789f;
+}
+.even_row{
+	background-color:#CCC;
 }
 #page2{
 	opacity:0;
@@ -45,7 +54,7 @@
 	border-bottom:#666 2px solid;
 }
 #repayment_result_saving{
-	width:210px;
+	width:260px;
 	height:300px;
 	margin-left:5px;
 	margin-top:5px;
@@ -53,15 +62,15 @@
 	background-color:#F00;
 }
 #repayment_result_offset{
-	width:210px;
+	width:260px;
 	height:300px;
 	margin-left:5px;
 	margin-top:5px;
 	float:left;
 	background-color:#090;
 }
-#repayment_result_offset_visa{
-	width:210px;
+#repayment_result_visa{
+	width:260px;
 	height:300px;
 	margin-left:5px;
 	margin-top:5px;
@@ -92,73 +101,76 @@
 </style>
 <script type="text/javascript" src="../flot/jquery.js"></script>
 <script type="text/javascript" src="../flot/jquery.flot.js"></script>
+<script type="text/javascript" src="../ui_js/jquery-ui-1.8.13.custom.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#button1").click(function(){
 		$("#page2").animate({marginLeft:"200px"},1);
-		$("#page1").animate({marginLeft:"0px",opacity:0},1000);
-		$("#page2").animate({marginLeft:"100px",opacity:1},1000);
+		$("#page1").animate({marginLeft:"0px",opacity:0},500);
+		$("#page2").animate({marginLeft:"100px",opacity:1},500);
 	});
 	$("#button2").click(function(){
-		$("#page2").animate({marginLeft:"200px",opacity:0},1000);
+		$("#page2").animate({marginLeft:"200px",opacity:0},500);
 		$("#page2").animate({marginLeft:"-2000px",opacity:0},1);
-		$("#page1").animate({marginLeft:"100px",opacity:1},1000);
+		$("#page1").animate({marginLeft:"100px",opacity:1},500);
 	});
 	// Fill the blank of input
 	for (var date=1;date<=20;date++){
 		$("#input_date"+date).val(date);
 		$("#input_amount"+date).val(date);
 		}
-	
 	// Select and display dates
-	//$( ".datepicker" ).datepicker({dateFormat:'d'});
+	$( ".datepicker" ).datepicker();
+	
+	$("form").submit(function(){
 		
-		
-	$("#button3").click(function(){
-		// Printing the array of 30 days period
-		var date_array=new Array();
-		var expenses_array=new Array();
-		var period_expenses_array=[];
-		var temp=0; // For storing the previous amount
-		
-		// Initial the value of array
-		for (var j=0;j<=30;j++){
-			date_array[j]=0;
-			}
-		
-		// Store the amount in date_array with corresponding date
-		for (var a=0;a<=10;a++){
-			date_array[$("#input_date"+a).val()] += 1*$("#input_amount"+a).val();
-			}
-		
-		// Calculating the sum of previous amount and store in period_expenses_array
-		for (var k=0;k<=30;k++){
-			expenses_array[k]=temp+date_array[k];
-			temp=expenses_array[k];
-			period_expenses_array.push([k,temp]);
-		}
-		
-		//Drawing the diagram
-		plot=$.plot($("#placeholder"), 
-		[ {
-			data: period_expenses_array,
-		    color: "#06f206",
-		    lines: {  fill: true } 
-		    }
-			], 
-			{ 
-				series:{
-					lines: { show:true}
-				},
-				grid: { hoverable:true, autoHighlight: true},
-     			xaxis: { min: 0},
-				yaxis: { min: 0}
+			var data=$(this).serializeObject();
+		//	var month=new Date(data.date[0]);
+			//alert(month.getMonth()+1);
+			//alert(month.getMonth());
+			console.log($(this).serializeObject());
+			//console.log($(this).serializeArray());
 			
-			});
+			return false;
 		
 		});
-		
+	
 });
+
+// Serialize Array
+	
+/*!
+ * jQuery serializeObject - v0.2 - 1/20/2010
+ * http://benalman.com/projects/jquery-misc-plugins/
+ * 
+ * Copyright (c) 2010 "Cowboy" Ben Alman
+ * Dual licensed under the MIT and GPL licenses.
+ * http://benalman.com/about/license/
+ */
+
+// Whereas .serializeArray() serializes a form into an array, .serializeObject()
+// serializes a form into an (arguably more useful) object.
+
+(function($,undefined){
+  '$:nomunge'; // Used by YUI compressor.
+  
+  $.fn.serializeObject = function(){
+    var obj = {};
+    
+    $.each( this.serializeArray(), function(i,o){
+      var n = o.name,
+        v = o.value;
+        if(v!=''){
+			obj[n] = obj[n] === undefined ? v
+			  : $.isArray( obj[n] ) ? obj[n].concat( v )
+			  : [ obj[n], v ];
+		}
+    });
+    
+    return obj;
+  };
+  
+})(jQuery);
 </script>
 <title>Untitled Document</title>
 </head>
@@ -167,10 +179,11 @@ $(document).ready(function(){
 
 <div id="container">
  <div id="page1">
+ <form>
  <div id="expenses_title"><b>Your expenses</b></div>
  <br />
  <div id="table1">
- 	<table width="400" border="0px" cellspacing="0" cellpadding="5px" frame="box">
+ 	<table width="450" border="0px" cellspacing="0" cellpadding="5px" frame="box">
 			<tr>
     			<th scope="col">Date</th>
         		<th scope="col">Category</th>
@@ -179,21 +192,34 @@ $(document).ready(function(){
     		</tr>
   			<script type="text/javascript">
 			for (var i=1;i<=10;i++){
-			// For date
-			document.write("<tr align='center'><td><input type='text' id='input_date"+i+"' class='datepicker' size='5'> </td>");
-			// For category
-			document.write("<td><select id='input_category"+i+"'><option>Water bill</option><option>Phone bill</option><option>Electricity bill</option><option>Gas bill</option><option>Other</option></select></td>");
-			// For frequency
-			document.write("<td><select id='input_frequency"+i+"'> <option>Weekly</option><option>Quarterly</option><option>Yearly</option></select></td>");
+				if (i%2!=0){
+				// For date
+				document.write("<tr class='odd_row' align='center'><td><input type='text' id='input_date"+i+"' class='datepicker' name='date' size='9'> </td>");
+				// For category
+				document.write("<td><select id='input_category"+i+"' name='category'><option>Water bill</option><option>Phone bill</option><option>Electricity bill</option><option>Gas bill</option><option>Other</option></select></td>");
+				// For frequency
+				document.write("<td><select id='input_frequency"+i+"' name='frequency'> <option>Quarterly</option><option>Yearly</option></select></td>");
 			
-			// For amount
-			document.write("<td>$<input id='input_amount"+i+"' type='text' size='7'/></td></tr>");
+				// For amount
+				document.write("<td>$<input id='input_amount"+i+"' type='text' name='amount' size='7'/></td></tr>");
+				}
+				else {
+					// For date
+				document.write("<tr class='even_row' align='center'><td><input type='text' id='input_date"+i+"' class='datepicker' name='date' size='9'> </td>");
+				// For category
+				document.write("<td><select id='input_category"+i+"' name='category'><option>Water bill</option><option>Phone bill</option><option>Electricity bill</option><option>Gas bill</option><option>Other</option></select></td>");
+				// For frequency
+				document.write("<td><select id='input_frequency"+i+"' name='frequency'><option>Quarterly</option><option>Yearly</option></select></td>");
+			
+				// For amount
+				document.write("<td>$<input id='input_amount"+i+"' type='text' name='amount' size='7'/></td></tr>");
+					}
 			}
 			</script>
 </table>
 </div>
 <div id="table2">
-<table width="400" border="0px" cellspacing="0" cellpadding="5px" frame="box">
+<table width="450" border="0px" cellspacing="0" cellpadding="5px" frame="box">
 			<tr>
     			<th scope="col">Date</th>
         		<th scope="col">Category</th>
@@ -202,17 +228,33 @@ $(document).ready(function(){
     		</tr>
   			<script type="text/javascript">
 			for (var i=11;i<=20;i++){
-			// For date
-			document.write("<tr align='center'><td><input type='text' id='input_date"+i+"' class='datepicker' size='5'> ");
-			// For category
-			document.write("</td><td><select id='input_category"+i+"'><option>Water bill</option><option>Phone bill</option><option>Electricity bill</option><option>Gas bill</option><option>Other</option></select></td>");
-			// For frequency
-			document.write("<td><select id='input_frequency"+i+"'> <option>Weekly</option><option>Quarterly</option><option>Yearly</option></select></td>");
-			// For amount
-			document.write("<td>$<input id='input_amount"+i+"' type='text' size='7'/></td></tr>");
+			if (i%2!=0){
+				// For date
+				document.write("<tr class='odd_row' align='center'><td><input type='text' id='input_date"+i+"' class='datepicker' name='date' size='9'> </td>");
+				// For category
+				document.write("<td><select id='input_category"+i+"' name='category'><option>Water bill</option><option>Phone bill</option><option>Electricity bill</option><option>Gas bill</option><option>Other</option></select></td>");
+				// For frequency
+				document.write("<td><select id='input_frequency"+i+"' name='frequency'><option>Quarterly</option><option>Yearly</option></select></td>");
+			
+				// For amount
+				document.write("<td>$<input id='input_amount"+i+"' type='text' name='amount' size='7'/></td></tr>");
+				}
+				else {
+					// For date
+				document.write("<tr class='even_row' align='center'><td><input type='text' id='input_date"+i+"' class='datepicker' name='date' size='9'> </td>");
+				// For category
+				document.write("<td><select id='input_category"+i+"' name='category'><option>Water bill</option><option>Phone bill</option><option>Electricity bill</option><option>Gas bill</option><option>Other</option></select></td>");
+				// For frequency
+				document.write("<td><select id='input_frequency"+i+"' name='frequency'><option>Quarterly</option><option>Yearly</option></select></td>");
+			
+				// For amount
+				document.write("<td>$<input id='input_amount"+i+"' type='text' name='amount' size='7'/></td></tr>");
+					}
 			}
 			</script>
 </table>
+<input type="submit" id="submit" name="Submit" value="Submit" tabindex="3" />
+</form>
 </div>
 
  </div>
@@ -221,17 +263,22 @@ $(document).ready(function(){
  
  <div id="repayment_result">
     	<div id="repayment_result_saving">
+        	<div id="saving_result">
+            </div>
+            <div id="saving_result_detail">
+            </div>
         </div>
         <div id="repayment_result_offset">
+        	<div id="offset_result">
+            </div>
+            <div id="offset_result_detail">
+            </div>
         </div>
-        <div id="repayment_result_offset_visa">
-        </div>
-        <div id="repayment_result_select">
-        	<form>
-            	<input type="checkbox" name="repayment_type" value="Saving">Saving account<br /><br />
-                <input type="checkbox" name="repayment_type" value="Offset">Offset account<br /><br />
-                <input type="checkbox" name="repayment_type" value="Visa">Offset with VISA
-            </form>
+        <div id="repayment_result_visa">
+        	<div id="visa_result">
+            </div>
+            <div id="visa_result_detail">
+            </div>
         </div>
     </div>
     <div id="repayment_detail">
@@ -242,7 +289,7 @@ $(document).ready(function(){
             <br />
             <br />
             <label for="loan_year">Mortgage term:</label>
-            <input type="number" size="13" />%
+            <input type="number" size="13" value="6.89"/>%
             <br />
             <br />
             <label for="repayment_frequency">Repayment frequency</label>
