@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link type="text/css" href="../ui_css/ui-lightness/jquery-ui-1.8.13.custom.css" rel="stylesheet" />
 <style>
 	ul{
 		list-style:none;
@@ -22,22 +23,32 @@
 <!---include libaries--->
 <script type="text/javascript" src="../flot/jquery.js"></script>
 <script type="text/javascript" src="../flot/jquery.flot.js"></script>
+<script type="text/javascript" src="../ui_js/jquery-ui-1.8.13.custom.min.js"></script>
 
 <script>
 	$(document).ready(function(){
-	
+		
+		// Select and display dates
+		$( ".datepicker" ).datepicker(/*{dateFormat:'dd/mm/yy'}*/);
 		//initialise options
 		
 		var option='<option> Monthly </option>'+'<option> Yearly </option>';
 					
 		$(".repayment").append(option);
 		$("form").submit(function(){
+			
+			var data=$(this).serializeObject();
+			
+			var month=new Date(data.date[1]);
+			alert(month.getMonth());
 			console.log($(this).serializeObject());
 			//console.log($(this).serializeArray());
-			var data=$(this).serializeObject();
+			
 			return false;
 		
 		});
+		
+		
 	});
 		
 		
@@ -88,7 +99,7 @@
 			<ul>
             <script type="text/javascript">
 			for (var i=1;i<=10;i++){
-				document.write("<li><label>Date:</label><input type='text' name='date' /><label>Month:</label><input type='text' name='month' /><label>Amount:</label><input type='text' name='amount' /><label>Frequency:</label><select class='repayment' name='frequency'></select></li>");
+				document.write("<li><label>Date:</label><input type='text' class='datepicker' name='date' /><label>Month:</label><input type='text' name='month' /><label>Amount:</label><input type='text' name='amount' /><label>Frequency:</label><select class='repayment' name='frequency'></select></li>");
 			}
 			</script>
 			
