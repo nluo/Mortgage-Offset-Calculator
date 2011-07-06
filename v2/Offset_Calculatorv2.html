@@ -50,6 +50,14 @@
                     <input type="number" id="loan_year" class="input_detail" name="mortgage" min="0"max="40" value="30" size="13"/>year(s)
                     </div>
                 </div>
+				<div id="_monthly_earning">
+                	<div id="_monthly_earning_title" class="_left_text" style="float:left;">
+                    Monthly earning:
+                    </div>
+                    <div id="_monthly_earning_box" style="float:right;">
+                    $&nbsp;<input id="monthly_earning" type="text" name="monthly_earning" size="13" style="margin-right:59px; margin-top:10px;" />
+                    </div>
+                </div>
                 <div id="_normal_interest_rate">
                 	<div id="_normal_interest_rate_title" class="_left_text" style="float:left;">Normal Interest Rate<br /> (3.00~8.00)
                     </div>
@@ -84,10 +92,10 @@
 			<div id="results" style="float:right;">
             <div id="result1" style="float:left;">
             	<div id="_result_title1" class="_right_text" style="margin-top:10px;">
-                Normal and With Offset Loan - Repayment and Term
+                Accumulated Interest
                 </div>
                 <div id="_difference_color1" class="_right_text">
-                <img src="With_Offset.png">&nbsp;With Offset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="Without_Offset.png">&nbsp;Without Offset
+                <img src="p1.png">&nbsp;Normal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="p2.png">&nbsp;With Offset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="p3.png">&nbsp;With Offset n Visa
                 </div>
                 <div id="placeholder1">
                 </div>
@@ -105,10 +113,10 @@
             </div>
 			<div id="result2" style="float:right;">
             	<div id="_result_title2" class="_right_text" style="margin-top:10px;">
-                Normal and With Offset Loan - Offset Amount
+                Loan Amount
                 </div>
                 <div id="_difference_color2" class="_right_text">
-                <img src="With_Offset.png">&nbsp;With Offset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="Without_Offset.png">&nbsp;Without Offset
+                 <img src="p1.png">&nbsp;Normal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="p2.png">&nbsp;With Offset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="p3.png">&nbsp;With Offset n Visa
                 </div>
                 <div id="placeholder2">
                 </div>
@@ -126,6 +134,22 @@
             </div>
 			</div>
         </div>
+	</div>
+	<div style="float:left">
+		<form>
+			<ul>
+			<li>
+					<input type="submit" id="submit" name="Submit" value="Submit" tabindex="3" />
+				</li>
+            <script type="text/javascript">
+			for (var i=1;i<=10;i++){
+				document.write("<li><label>Month:</label><input id='month"+i+"' type='text' name='month' /><label>Day:</label><input id='day"+i+"' type='text' name='day' /><label>Amount:</label><input id='amount"+i+"' type='text' name='amount' /><label>Frequency:</label><select id='frequency"+i+"' class='repayment' name='frequency'></select></li>");
+			}
+			</script>
+			
+				
+			</ul>
+		</form>
 	</div>
 	</div>
 </body>
