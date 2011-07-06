@@ -1,0 +1,57 @@
+Three packages:
+1. Saving
+2. With offset
+3. With offset & visa
+
+1. Saving
+Every year
+	Every month
+		At first day of each month, ie. day 1 
+			- monthly_earning is added to saving_account
+		Every day
+			- daily_spendings* are calculated and reduced from saving_account
+			- daily_interest is calculated from loan_amount and daily_interest_rate, and accumulated
+		At last day of each month, ie. day 30
+			- monthly_payment is reduced from saving_account
+			- daily_interest that are accumulated into a monthly_interest is added to loan_amount
+			- monthly_payment is reduced from loan_amount, meaning it has been paid off*
+			
+* daily_spendings is not an average of the overall spending over a period of time, rather a collection of spendings that are estimated to happening on the day.
+* if monthly_interest is higher than monthly_payment, then this loan will never be paid off and enter an endless loop. Currently graph is set to show maximum up to 30 years.
+
+2. With offset
+Every year
+	Every month
+		At first day of each month, ie. day 1 
+			- monthly_earning is added to offset_account*
+		Every day
+			- daily_spendings are calculated and reduced from offset_account*
+			- daily_interest is calculated from loan_amount-offset_account and daily_interest_rate, and accumulated
+		At last day of each month, ie. day 30
+			- monthly_payment is reduced from offset_account
+			- daily_interest that are accumulated into a monthly_interest is added to loan_amount
+			- monthly_payment is reduced from loan_amount, meaning it has been paid off
+
+* current offset_account cannot exceed current loan_amount. Any exceeding amount will be transferred to saving_account
+* any amount of daily_spendings that is exceeding offset_account will be reduced from saving_account, this can happen at early stages of the loan, when there isn't much money in the offset_account and a big spending came up, eg a yearly insurance payment. However this can also indicate that monthly_spending and monthly_payment may be too much for the monthly_earning, then this loan will never be paid off.
+
+3. With offset & visa
+Every year
+	Every month
+		At first day of each month, ie. day 1 
+			- monthly_earning is added to offset_account
+		Every day
+			- daily_spendings are calculated and reduced from visa_account*
+			- daily_interest is calculated from loan_amount-offset_account and daily_interest_rate, and accumulated
+		At last day of each month, ie. day 30
+			- amount owing in visa_account is reduced from offset_account
+			- monthly_payment is reduced from offset_account
+			- daily_interest that are accumulated into a monthly_interest is added to loan_amount
+			- monthly_payment is reduced from loan_amount, meaning it has been paid off
+			
+* purpose of visa_account: avoid the reduction of offset account from daily_spendings until the end of the month
+
+* order of processes above are as mentioned.
+			
+
+		
