@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+	ul{
+		list-style:none;
+		}
+	li{
+		margin-top: 10px;
+	}
+	
+	form {  
+	  background-color: #CCCCCC;  
+	  color: #000000;  
+	  border: 1px solid #999999;  
+	  font-family: Verdana, Arial, Helvetica, sans-serif;  
+	  font-size: 10px;  
+	  text-align: right;  
+	}
+</style>
+<!---include libaries--->
+<script type="text/javascript" src="../flot/jquery.js"></script>
+<script type="text/javascript" src="../flot/jquery.flot.js"></script>
+
+<script>
+	$(document).ready(function(){
+	
+		//initialise options
+		
+		var option='<option> Weekly </option>'+ '<option> Monthly </option>'+'<option> Yearly </option>';
+					
+		$(".repayment").append(option);
+		$("form").submit(function(){
+			console.log($(this).serializeObject());
+			console.log($(this).serializeArray());
+			var data=$(this).serializeObject();
+			return false;
+		
+		});
+	});
+		
+		
+	
+
+// Serialize Array
+	
+/*!
+ * jQuery serializeObject - v0.2 - 1/20/2010
+ * http://benalman.com/projects/jquery-misc-plugins/
+ * 
+ * Copyright (c) 2010 "Cowboy" Ben Alman
+ * Dual licensed under the MIT and GPL licenses.
+ * http://benalman.com/about/license/
+ */
+
+// Whereas .serializeArray() serializes a form into an array, .serializeObject()
+// serializes a form into an (arguably more useful) object.
+
+(function($,undefined){
+  '$:nomunge'; // Used by YUI compressor.
+  
+  $.fn.serializeObject = function(){
+    var obj = {};
+    
+    $.each( this.serializeArray(), function(i,o){
+      var n = o.name,
+        v = o.value;
+        if(v!=''){
+			obj[n] = obj[n] === undefined ? v
+			  : $.isArray( obj[n] ) ? obj[n].concat( v )
+			  : [ obj[n], v ];
+		}
+    });
+    
+    return obj;
+  };
+  
+})(jQuery);
+</script>
+</head>
+
+<body>
+
+<div id="wrapper">
+	<div style="float:left">
+		<form>
+			<ul>
+				<li>
+					<label> Date:
+						<input type="text" name="date" />
+					</label>
+					<label> Amount:
+						<input type="text" name="Amount" />
+					</label>
+					<label> Frequency:
+						<select class="repayment" name="frequency"></select>	
+					</label>
+				</li>
+					<li>
+					<label> Date:
+						<input type="text" name="date" />
+					</label>
+					<label> Amount:
+						<input type="text" name="Amount" />
+					</label>
+					<label> Frequency:
+						<select class="repayment" name="frequency"></select>	
+					</label>
+					
+				</li>
+					<li>
+					<label> Date:
+						<input type="text" name="date" />
+					</label>
+					<label> Amount:
+						<input type="text" name="Amount" />
+					</label>
+					
+					<label> Frequency:
+						<select class="repayment" name="frequency"></select>	
+					</label>
+				</li>
+				
+				<li>
+					<label> Date:
+						<input type="text" name="date" />
+					</label>
+					<label> Amount:
+						<input type="text" name="Amount" />
+					</label>
+					
+					<label> Frequency:
+						<select class="repayment" name="frequency"></select>	
+					</label>
+				</li>
+				
+				<li>
+					<label> Date:
+						<input type="text" name="date" />
+					</label>
+					<label> Amount:
+						<input type="text" name="Amount" />
+					</label>
+					
+					<label> Frequency:
+						<select class="repayment" name="frequency"></select>	
+					</label>
+				</li>
+				
+				<li>
+					<label> Date:
+						<input type="text" name="date" />
+					</label>
+					<label> Amount:
+						<input type="text" name="Amount" />
+					</label>
+					
+					<label> Frequency:
+						<select class="repayment" name="frequency"></select>	
+					</label>
+					
+				</li>
+				
+				<li>
+					<label> Date:
+						<input type="text" name="date" />
+					</label>
+					<label> Amount:
+						<input type="text" name="Amount" />
+					</label>
+					
+					<label> Frequency:
+						<select class="repayment" name="frequency"></select>	
+					</label>
+				</li>
+				
+				<li>
+					<label> Date:
+						<input type="text" name="date" />
+					</label>
+					<label> Amount:
+						<input type="text" name="Amount" />
+					</label>
+					
+					<label> Frequency:
+						<select class="repayment" name="frequency"></select>	
+					</label>
+				</li>
+				
+				<li>
+					<label> Date:
+						<input type="text" name="date" />
+					</label>
+					<label> Amount:
+						<input type="text" name="Amount" />
+					</label>
+					
+					<label> Frequency:
+						<select class="repayment" name="frequency"></select>	
+					</label>
+				</li>
+				<li>
+					<input type="submit" id="submit" name="Submit" value="Submit" tabindex="3" />
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>
