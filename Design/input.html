@@ -10,13 +10,13 @@
 		margin-top: 10px;
 	}
 	
-	form {  
-	  background-color: #CCCCCC;  
-	  color: #000000;  
-	  border: 1px solid #999999;  
-	  font-family: Verdana, Arial, Helvetica, sans-serif;  
-	  font-size: 10px;  
-	  text-align: right;  
+	form { ï¿½
+	 ï¿½background-color: #CCCCCC; ï¿½
+	 ï¿½color: #000000; ï¿½
+	 ï¿½border: 1px solid #999999; ï¿½
+	 ï¿½font-family: Verdana, Arial, Helvetica, sans-serif; ï¿½
+	 ï¿½font-size: 10px; ï¿½
+	 ï¿½text-align: right; ï¿½
 	}
 </style>
 <!---include libaries--->
@@ -28,12 +28,12 @@
 	
 		//initialise options
 		
-		var option='<option> Weekly </option>'+ '<option> Monthly </option>'+'<option> Yearly </option>';
+		var option='<option> Monthly </option>'+'<option> Yearly </option>';
 					
 		$(".repayment").append(option);
 		$("form").submit(function(){
 			console.log($(this).serializeObject());
-			console.log($(this).serializeArray());
+			//console.log($(this).serializeArray());
 			var data=$(this).serializeObject();
 			return false;
 		
@@ -86,120 +86,12 @@
 	<div style="float:left">
 		<form>
 			<ul>
-				<li>
-					<label> Date:
-						<input type="text" name="date" />
-					</label>
-					<label> Amount:
-						<input type="text" name="Amount" />
-					</label>
-					<label> Frequency:
-						<select class="repayment" name="frequency"></select>	
-					</label>
-				</li>
-					<li>
-					<label> Date:
-						<input type="text" name="date" />
-					</label>
-					<label> Amount:
-						<input type="text" name="Amount" />
-					</label>
-					<label> Frequency:
-						<select class="repayment" name="frequency"></select>	
-					</label>
-					
-				</li>
-					<li>
-					<label> Date:
-						<input type="text" name="date" />
-					</label>
-					<label> Amount:
-						<input type="text" name="Amount" />
-					</label>
-					
-					<label> Frequency:
-						<select class="repayment" name="frequency"></select>	
-					</label>
-				</li>
-				
-				<li>
-					<label> Date:
-						<input type="text" name="date" />
-					</label>
-					<label> Amount:
-						<input type="text" name="Amount" />
-					</label>
-					
-					<label> Frequency:
-						<select class="repayment" name="frequency"></select>	
-					</label>
-				</li>
-				
-				<li>
-					<label> Date:
-						<input type="text" name="date" />
-					</label>
-					<label> Amount:
-						<input type="text" name="Amount" />
-					</label>
-					
-					<label> Frequency:
-						<select class="repayment" name="frequency"></select>	
-					</label>
-				</li>
-				
-				<li>
-					<label> Date:
-						<input type="text" name="date" />
-					</label>
-					<label> Amount:
-						<input type="text" name="Amount" />
-					</label>
-					
-					<label> Frequency:
-						<select class="repayment" name="frequency"></select>	
-					</label>
-					
-				</li>
-				
-				<li>
-					<label> Date:
-						<input type="text" name="date" />
-					</label>
-					<label> Amount:
-						<input type="text" name="Amount" />
-					</label>
-					
-					<label> Frequency:
-						<select class="repayment" name="frequency"></select>	
-					</label>
-				</li>
-				
-				<li>
-					<label> Date:
-						<input type="text" name="date" />
-					</label>
-					<label> Amount:
-						<input type="text" name="Amount" />
-					</label>
-					
-					<label> Frequency:
-						<select class="repayment" name="frequency"></select>	
-					</label>
-				</li>
-				
-				<li>
-					<label> Date:
-						<input type="text" name="date" />
-					</label>
-					<label> Amount:
-						<input type="text" name="Amount" />
-					</label>
-					
-					<label> Frequency:
-						<select class="repayment" name="frequency"></select>	
-					</label>
-				</li>
+            <script type="text/javascript">
+			for (var i=1;i<=10;i++){
+				document.write("<li><label>Date:</label><input type='text' name='date' /><label>Month:</label><input type='text' name='month' /><label>Amount:</label><input type='text' name='amount' /><label>Frequency:</label><select class='repayment' name='frequency'></select></li>");
+			}
+			</script>
+			
 				<li>
 					<input type="submit" id="submit" name="Submit" value="Submit" tabindex="3" />
 				</li>
