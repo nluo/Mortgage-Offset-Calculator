@@ -60,6 +60,9 @@ div{
 	font-size:14px;}
 #_mortgage{
 	margin-top:85px;}
+#_monthly_earning{
+	margin-top:110px;
+}
 #_normal_interest_rate{
 	margin-top:165px;}
 #_offset_interest_rate{
@@ -116,3 +119,9 @@ div{
 	float:right;
 	margin-right:20px;
 	color:#999;}
+ul{
+	list-style:none;
+}
+li{
+	margin-top: 10px;
+}
