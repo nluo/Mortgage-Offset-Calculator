@@ -21,14 +21,16 @@
 
 $(document).ready(function(){
 	$("#button1").click(function(){
+		$("#page1").animate({marginLeft:"0px",opacity:0},1000);
 		$("#page2").animate({marginLeft:"200px"},1);
-		$("#page1").animate({marginLeft:"0px",opacity:0},500);
-		$("#page2").animate({marginLeft:"100px",opacity:1},500);
+		$("#page2").animate({marginLeft:"100px",opacity:1},1000);
+		$("#page1").animate({marginLeft:"-2000px"},1);
 	});
 	$("#button2").click(function(){
-		$("#page2").animate({marginLeft:"200px",opacity:0},500);
+		$("#page2").animate({marginLeft:"200px",opacity:0},1000);
 		$("#page2").animate({marginLeft:"-2000px",opacity:0},1);
-		$("#page1").animate({marginLeft:"100px",opacity:1},500);
+		$("#page1").animate({marginLeft:"0px"},1);
+		$("#page1").animate({marginLeft:"100px",opacity:1},1000);
 	});
 	// Fill the blank of input
 	for (var date=1;date<=20;date++){
@@ -45,21 +47,21 @@ $(document).ready(function(){
 	$("#monthly_earning").val('8000');
 	$("#loan_year").val('30');
 	$("#loan_repaymentFrequency").val('1');
-	$("#normal_interest").val('0.06');
-	$("#offset_interest").val('0.07');
+	$("#normal_interest").val('6');
+	$("#offset_interest").val('7');
 	
 	
 	//initialise options
 	var option='<option> Monthly </option>'+'<option> Quarterly </option>'+'<option> Yearly </option>';
 	$(".repayment").append(option);
 	//initialise spendings
-	$("#month1").val('1');$("#month2").val('7');$("#month3").val('3');$("#month4").val('2');$("#month5").val('2');
+	/*$("#month1").val('1');$("#month2").val('7');$("#month3").val('3');$("#month4").val('2');$("#month5").val('2');
 	$("#month6").val('12');$("#month7").val('3');$("#month8").val('6');$("#month9").val('8');$("#month10").val('1');
 	$("#day1").val('2');$("#day2").val('29');$("#day3").val('1');$("#day4").val('29');$("#day5").val('4');
 	$("#day6").val('17');$("#day7").val('21');$("#day8").val('22');$("#day9").val('10');$("#day10").val('17');
 	$("#amount1").val('210');$("#amount2").val('700');$("#amount3").val('140');$("#amount4").val('100');$("#amount5").val('30');
 	$("#amount6").val('250');$("#amount7").val('40');$("#amount8").val('1000');$("#amount9").val('75');$("#amount10").val('2000');
-	$("#frequency1").val("Monthly");$("#frequency2").val("Quarterly");$("#frequency3").val("Monthly");$("#frequency4").val("Monthly");$("#frequency5").val("Monthly");$("#frequency6").val("Quarterly");$("#frequency7").val("Monthly");$("#frequency8").val("Quarterly");$("#frequency9").val("Monthly");$("#frequency10").val("Yearly");
+	$("#frequency1").val("Monthly");$("#frequency2").val("Quarterly");$("#frequency3").val("Monthly");$("#frequency4").val("Monthly");$("#frequency5").val("Monthly");$("#frequency6").val("Quarterly");$("#frequency7").val("Monthly");$("#frequency8").val("Quarterly");$("#frequency9").val("Monthly");$("#frequency10").val("Yearly");*/
 	
 	// initialise variables
  	var loan_amount=$("#loan_amount").val();
@@ -90,9 +92,10 @@ $(document).ready(function(){
 		calculateRepayment(loan_amount,offset_amount,monthly_earning,loan_term,frequency,normal_interest,offset_interest,data);	
 		
 		
-			$("#page2").animate({marginLeft:"200px"},1);
-			$("#page1").animate({marginLeft:"0px",opacity:0},500);
-			$("#page2").animate({marginLeft:"100px",opacity:1},500);
+		$("#page1").animate({marginLeft:"0px",opacity:0},1000);
+		$("#page2").animate({marginLeft:"200px"},1);
+		$("#page2").animate({marginLeft:"100px",opacity:1},1000);
+		$("#page1").animate({marginLeft:"-2000px"},1);
 		
 		
 		$("#placeholder1").show(1000);
@@ -359,8 +362,70 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 		offset_amount=initial_offset_amount*1;
 		saving_amount=0;
 		y=1;m=1;d=1;
+		
+		var datasets={
+			"saving":{
+				label: "Saving",
+				data: result1
+			},
+			"offset":{
+				label: "Offset",
+				data: result2
+			},
+			"offset_visa":{
+				label: "Offset_visa",
+				data: result3
+			}
+		};
+		
+		var i=0;
+		$.each(datasets, function(key,val){
+			val.color=i;
+			++i;
+		});
+		
+		var choiceContainer = $("#result_selector");
+		$.each(datasets,function(key,val){
+			choiceContainer.append('<br/><input type="checkbox" name="' + key +
+                               '" checked="checked" id="id' + key + '">' +
+                               '<label for="id' + key + '">'
+                                + val.label + '</label>');
+		});
+		
+		choiceContainer.find("input").click(plotAccordingToChoices);
+		
+		function plotAccordingToChoices(){
+			var data=[];
 			
-		plot=$.plot($("#placeholder1"), 
+			choiceContainer.find("input:checked").each(function(){
+				var key = $(this).attr("name");
+				if(key&&datasets[key])
+					data.push(datasets[key]);
+			});
+			
+			if(data.length>0)
+				$.plot($("#placeholder1"),data, {
+					legend:{position:"nw"},
+					yaxis:{ min: 0, 
+							position:"left" ,
+							tickFormatter: function(val,axis){
+							if(val>=1000000)
+								return (val/1000000).toFixed(2)+"M";
+							else if(val==0)
+								return val;					
+							else if(val>=1000&val<1000000)
+								return (val/1000).toFixed(0)+"K";
+							else
+								return val;	
+							}
+						},
+					xaxis:{ tickDecimals:0}
+				});
+		}
+		
+		plotAccordingToChoices();
+			
+		/*plot=$.plot($("#placeholder1"), 
 		[ {
 			data: result1,
 		    color: "#06f206",
@@ -391,13 +456,13 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 						return (val/1000000).toFixed(2)+"M";
 					else if(val==0)
 						return val;					
-					else if(val>1000&&val<1000000)
+					else if(val>=1000&&val<1000000)
 						return (val/1000).toFixed(0)+"K";
 					else
 						return val;									
 				}
 			}
-		});
+		});*/
 		
 	
 	});
