@@ -161,7 +161,7 @@ function calculateRepayment(loan_amount,offset_amount,monthly_earning,loan_term,
 		return "Average Monthly Spending: $ <b><span class='_blue'>"+(Math.round(monthly_spending*100)/100)+"</span></b>";
 	});
 	$("#_estimate_difference1").html(function(){
-		return "Monthly Repayment: $ <b><span class='_blue'>"+(Math.round(term_normal_payment*100)/100)+"</span></b>.";
+		return frequency+" Repayment: $ <b><span class='_blue'>"+(Math.round(term_normal_payment*100)/100)+"</span></b>.";
 	});
 }
 					
@@ -295,11 +295,11 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 				m=1;
 			}
 		}
-		/*
+		
 		$("#_estimate_time2").html(function(){
 			return "With offset: $ <b><span class='_blue'>"+(Math.round(accumulated_interest*100)/100)+"</span></b><br />in <b><span class='_blue'>"+y+"</span></b> years <b><span class='_blue'>"+m+"</span></b> month.";
 		});
-		*/
+		
 		accumulated_interest=0;
 		loan_amount=initial_loan_amount*1;
 		offset_amount=initial_offset_amount*1;
@@ -360,11 +360,11 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 			}
 		}
 		
-		/*
+		
 		$("#_estimate_difference2").html(function(){
 			return "With offset & Visa: $ <b><span class='_blue'>"+(Math.round(accumulated_interest*100)/100)+"</span></b><br />in <b><span class='_blue'>"+y+"</span></b> years <b><span class='_blue'>"+m+"</span></b> month.";
 		});
-		*/
+		
 		accumulated_interest=0;
 		loan_amount=initial_loan_amount*1;
 		offset_amount=initial_offset_amount*1;
@@ -374,15 +374,15 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 		var datasets={
 			"saving":{
 				label: "Saving",
-				data: result1
+				data: result11
 			},
 			"offset":{
 				label: "Offset",
-				data: result2
+				data: result12
 			},
 			"offset_visa":{
 				label: "Offset_visa",
-				data: result3
+				data: result13
 			}
 		};
 		
@@ -419,7 +419,7 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 			if(data.length>0){
 			
 				var plot=$.plot($("#placeholder1"),data, {
-					legend:{position:"nw"},
+					//legend:{position:"nw"},
 					yaxis:{ min: 0, 
 							position:"left" ,
 							tickFormatter: function(val,axis){

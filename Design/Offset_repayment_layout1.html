@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link type="text/css" href="../ui_css/ui-lightness/jquery-ui-1.8.13.custom.css" rel="stylesheet" />
+
 <style type="text/css">
 #container{
 	width:1000px;
@@ -41,6 +41,13 @@ th{
 }
 .even_row{
 	background-color:#CCC;
+}
+.result_title{
+	width:250px;
+	font-size:20px;
+	font-weight:bold;
+	text-align:center;
+	color:#000;
 }
 #page2{
 	opacity:0;
@@ -93,9 +100,42 @@ th{
 	margin-left:10px;
 	float:left;
 }
-#repayment_detail_withoffset{}
+#repayment_result_content{
+	width:800px;
+	height:170px;
+	font-size:36px;
+}
+#three_result{
+	width:800px;
+	height:77px;
+	border-bottom:#666 2px solid;
+}
+.results{
+	width:250px;
+	height:55px;
+	margin-top:10px;
+	margin-left:13px;
+	float:left;
+	border-radius:20px;
+	-moz-border-radius:20px; /* Firefox 3.6 and earlier */
+	text-align:center;
+}
+#saving_result{
+	background-color:#f6e1a0;
+}
+#offset_result{
+	background-color:#d7ecfc;
+}
+#offset_visa_result{
+	background-color:#e5a5a5;
+}
+.repayment_final_result{
+	margin-top:5px;
+	text-align:center;
+}
 
 </style>
+<link type="text/css" href="../ui_css/ui-lightness/jquery-ui-1.8.13.custom.css" rel="stylesheet" />
 <script type="text/javascript" src="../flot/jquery.js"></script>
 <script type="text/javascript" src="../flot/jquery.flot.js"></script>
 <script type="text/javascript" src="../ui_js/jquery-ui-1.8.13.custom.min.js"></script>
@@ -193,13 +233,13 @@ th{
  
  <div id="repayment_result">
     <div id="placeholder1"> </div>
-    <div id="middle">
-    <div id="result_selector"></div>
-    </div>
+   	 	<div id="middle">
+    		<div id="result_selector"></div>
+    	</div>
     <div id="repayment_detail">
-    <div id="repayment_detail_enter">
-    <br />
-    <label for="loan_amount">Loan amount:</label>
+    	<div id="repayment_detail_enter">
+    	<br />
+    	<label for="loan_amount">Loan amount:</label>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$<input id="loan_amount" type="text" size="7"/>
     <br /><br />
     <label for="loan_year">Mortgage term:</label>
@@ -225,6 +265,25 @@ th{
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input id="offset_interest" type="number" size="7">%
      </div>
      </div>
+    </div>
+    <div id="three_result">
+    	<div id="saving_result" class="results">
+        	<div class="result_title">Saving Account</div>
+            <span id="_estimate_interest2"></span>
+        </div>
+        <div id="offset_result" class="results">
+        	<div class="result_title">Offset Account</div>
+            <span id="_estimate_time2"></span>
+        </div>
+        <div id="offset_visa_result" class="results">
+        	<div class="result_title">Offset Account with VISA</div>
+            <span id="_estimate_difference2"></span>
+        </div>
+    </div>
+    <div id="repayment_result_content">
+    	<div id="_estimate_interest1" class="repayment_final_result"></div>
+        <div id="_estimate_time1" class="repayment_final_result"></div>
+        <div id="_estimate_difference1" class="repayment_final_result"></div>
     </div>
  </div>
 
