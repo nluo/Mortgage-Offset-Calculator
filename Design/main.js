@@ -20,6 +20,7 @@
 })(jQuery);
 
 $(document).ready(function(){
+	
 	$("#button1").click(function(){
 		$("#page1").animate({marginLeft:"0px",opacity:0},1000);
 		$("#page2").animate({marginLeft:"200px"},1);
@@ -27,10 +28,12 @@ $(document).ready(function(){
 		$("#page1").animate({marginLeft:"-2000px"},1);
 	});
 	$("#button2").click(function(){
+		
 		$("#page2").animate({marginLeft:"200px",opacity:0},1000);
 		$("#page2").animate({marginLeft:"-2000px",opacity:0},1);
 		$("#page1").animate({marginLeft:"0px"},1);
 		$("#page1").animate({marginLeft:"100px",opacity:1},1000);
+		
 	});
 	// Fill the blank of input
 	for (var date=1;date<=20;date++){
@@ -75,6 +78,10 @@ $(document).ready(function(){
 	
 	
 	$("form").submit(function(){
+		// clean up the div first
+		$("#result_selector").html('');
+
+
 		console.log($(this).serializeObject());
 		//console.log($(this).serializeArray());
 		data=$(this).serializeObject();
@@ -159,7 +166,7 @@ function calculateRepayment(loan_amount,offset_amount,monthly_earning,loan_term,
 }
 					
 function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
-	var plot;
+
 	var result1=[],result2=[],result3=[],result11=[],result12=[],result13=[];
 	var initial_loan_amount=ILA*1,loan_amount=initial_loan_amount;
 	var initial_offset_amount=IOA*1,saving_amount=initial_offset_amount,offset_amount=initial_offset_amount,visa_amount=0;
@@ -169,6 +176,7 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 	var monthly_payment=MP*1;
 	var daily_interest1=normal_interest/36000,daily_interest2=offset_interest/36000,daily_interest3=offset_interest/36000;		
 	var accumulated_interest=0,monthly_accumulated_interest=0;
+	
 	
 	$(function(){
 		//actual length of the input
@@ -385,6 +393,8 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 		});
 		
 		var choiceContainer = $("#result_selector");
+	
+			
 		$.each(datasets,function(key,val){
 			choiceContainer.append('<br/><input type="checkbox" name="' + key +
                                '" checked="checked" id="id' + key + '">' +
@@ -395,16 +405,20 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 		choiceContainer.find("input").click(plotAccordingToChoices);
 		
 		function plotAccordingToChoices(){
-			var data=[];
-			
+			var data=new Array();
 			choiceContainer.find("input:checked").each(function(){
 				var key = $(this).attr("name");
-				if(key&&datasets[key])
+			
+				if(key&&datasets[key]){
+				
 					data.push(datasets[key]);
+				}
 			});
 			
-			if(data.length>0)
-				$.plot($("#placeholder1"),data, {
+		
+			if(data.length>0){
+			
+				var plot=$.plot($("#placeholder1"),data, {
 					legend:{position:"nw"},
 					yaxis:{ min: 0, 
 							position:"left" ,
@@ -421,8 +435,9 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 						},
 					xaxis:{ tickDecimals:0}
 				});
+			}
+			
 		}
-		
 		plotAccordingToChoices();
 			
 		/*plot=$.plot($("#placeholder1"), 
