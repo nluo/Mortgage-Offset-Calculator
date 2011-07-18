@@ -8,7 +8,7 @@
       var n = o.name,
         v = o.value;
         if(v!=''){
-			obj[n] = obj[n] === undefined ? v
+			obj[n] = obj[n] === undefined ? [v]
 			  : $.isArray( obj[n] ) ? obj[n].concat( v )
 			  : [ obj[n], v ];
 		}
@@ -27,13 +27,13 @@ $(document).ready(function(){
 	var option='<option> Monthly </option>'+'<option> Quarterly </option>'+'<option> Yearly </option>';
 	$(".repayment").append(option);
 	//initialise spendings
-	$("#month1").val('1');$("#month2").val('7');$("#month3").val('3');$("#month4").val('2');$("#month5").val('2');
-	$("#month6").val('12');$("#month7").val('3');$("#month8").val('6');$("#month9").val('8');$("#month10").val('1');
-	$("#day1").val('2');$("#day2").val('29');$("#day3").val('1');$("#day4").val('29');$("#day5").val('4');
-	$("#day6").val('17');$("#day7").val('21');$("#day8").val('22');$("#day9").val('10');$("#day10").val('17');
-	$("#amount1").val('210');$("#amount2").val('700');$("#amount3").val('140');$("#amount4").val('100');$("#amount5").val('30');
-	$("#amount6").val('250');$("#amount7").val('40');$("#amount8").val('1000');$("#amount9").val('75');$("#amount10").val('2000');
-	$("#frequency1").val("Monthly");$("#frequency2").val("Quarterly");$("#frequency3").val("Monthly");$("#frequency4").val("Monthly");$("#frequency5").val("Monthly");$("#frequency6").val("Quarterly");$("#frequency7").val("Monthly");$("#frequency8").val("Quarterly");$("#frequency9").val("Monthly");$("#frequency10").val("Yearly");
+	$("#month1").val('1');$("#month2").val('7');//$("#month3").val('3');$("#month4").val('2');$("#month5").val('2');
+	//$("#month6").val('12');$("#month7").val('3');$("#month8").val('6');$("#month9").val('8');$("#month10").val('1');
+	$("#day1").val('2');$("#day2").val('29');//$("#day3").val('1');$("#day4").val('29');$("#day5").val('4');
+	//$("#day6").val('17');$("#day7").val('21');$("#day8").val('22');$("#day9").val('10');$("#day10").val('17');
+	$("#amount1").val('300');$("#amount2").val('700');//$("#amount3").val('140');$("#amount4").val('100');$("#amount5").val('30');
+	//$("#amount6").val('250');$("#amount7").val('40');$("#amount8").val('1000');$("#amount9").val('75');$("#amount10").val('2000');
+	$("#frequency1").val("Monthly");$("#frequency2").val("Quarterly");//$("#frequency3").val("Monthly");$("#frequency4").val("Monthly");$("#frequency5").val("Monthly");$("#frequency6").val("Quarterly");$("#frequency7").val("Monthly");$("#frequency8").val("Quarterly");$("#frequency9").val("Monthly");$("#frequency10").val("Yearly");
 	
 	// initialise variables
  	var loan_amount=$("#loan_amount").val();
@@ -96,7 +96,8 @@ function calculateRepayment(loan_amount,offset_amount,monthly_earning,loan_term,
 	var power = loan_term*period;
 	var term_normal_payment = loan_amount*term_normal_interest*Math.pow((1+term_normal_interest),power)/(Math.pow((1+term_normal_interest),power)-1); 
 	var yearly_spending=0,monthly_spending=0;
-	for(var i=0;i<10;i++){
+	for(var i=0;i<2;i++){
+	//alert(data.month[i]+"\n"+data.day[i]+"\n"+data.amount[i]+"\n"+data.frequency[i]);
 		if(data.frequency[i]=="Monthly"){
 			yearly_spending+=data.amount[i]*12;
 		}
@@ -168,7 +169,7 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 			}
 		}
 		$("#_estimate_interest2").html(function(){
-			return "Saving account: $ <b><span class='_blue'>"+(Math.round(accumulated_interest*100)/100)+"</span></b>";
+			return "Saving account: $ <b><span class='_blue'>"+(Math.round(accumulated_interest*100)/100)+"</span></b><br />in <b><span class='_blue'>"+(y-1)+"</span></b> years <b><span class='_blue'>"+(m-1)+"</span></b> month.";
 		});
 		loan_amount = initial_loan_amount;
 		accumulated_interest=0;
@@ -176,7 +177,7 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 		// with offset
 		result2.push([0,accumulated_interest]);
 		var y=1,m=1,d=1;
-		while(loan_amount>0&&y<30){
+		while(loan_amount>0&&y<(loan_term+1)){
 			if(d==1){
 				offset_amount+=monthly_earning;
 				if(offset_amount>loan_amount){
@@ -221,8 +222,14 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 				m=1;
 			}
 		}
+		//alert("Loan amount: "+loan_amount);
 		$("#_estimate_time2").html(function(){
-			return "With offset: $ <b><span class='_blue'>"+(Math.round(accumulated_interest*100)/100)+"</span></b><br />in <b><span class='_blue'>"+y+"</span></b> years <b><span class='_blue'>"+m+"</span></b> month.";
+			if(y>loan_term){
+				return "With offset: $ <b><span class='_blue'>"+(Math.round(accumulated_interest*100)/100)+"</span></b><br />in <b>more than <span class='_blue'>"+(y-1)+"</span></b> years <b><span class='_blue'>"+12+"</span></b> month.";
+			}
+			else{
+				return "With offset: $ <b><span class='_blue'>"+(Math.round(accumulated_interest*100)/100)+"</span></b><br />in <b><span class='_blue'>"+y+"</span></b> years <b><span class='_blue'>"+m+"</span></b> month.";
+			}
 		});
 		accumulated_interest=0;
 		loan_amount=initial_loan_amount*1;
@@ -231,7 +238,7 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 		y=1;m=1;d=1;
 		// with offset and visa
 		result3.push([0,accumulated_interest]);
-		while(loan_amount>0&&y<30){
+		while(loan_amount>0&&y<(loan_term+1)){
 			if(d==1){
 				offset_amount+=monthly_earning;
 				if(offset_amount>loan_amount){
@@ -279,7 +286,12 @@ function drawGraph1(ILA,IOA,ME,LT,NI,OI,MP,data){
 			}
 		}
 		$("#_estimate_difference2").html(function(){
-			return "With offset & Visa: $ <b><span class='_blue'>"+(Math.round(accumulated_interest*100)/100)+"</span></b><br />in <b><span class='_blue'>"+y+"</span></b> years <b><span class='_blue'>"+m+"</span></b> month.";
+			if(y>loan_term){
+				return "With offset & Visa: $ <b><span class='_blue'>"+(Math.round(accumulated_interest*100)/100)+"</span></b><br />in <b>more than <span class='_blue'>"+(y-1)+"</span></b> years <b><span class='_blue'>"+12+"</span></b> month.";
+			}
+			else{
+				return "With offset & Visa: $ <b><span class='_blue'>"+(Math.round(accumulated_interest*100)/100)+"</span></b><br />in <b><span class='_blue'>"+y+"</span></b> years <b><span class='_blue'>"+m+"</span></b> month.";
+			}
 		});
 		accumulated_interest=0;
 		loan_amount=initial_loan_amount*1;
