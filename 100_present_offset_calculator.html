@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="ui_css/ui-lightness/jquery-ui-1.8.13.custom.css" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
+<script type="text/javascript" src="flot/jquery.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="flot/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="ui_js/jquery-ui-1.8.13.custom.min.js"></script>
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript" src="flot/jquery.flot.js"></script>
+<title>100% Offset Calculator</title>
+</head>
+
+<body>
+
+
+
+<div class="calculator">
+
+<div id="tabs">
+	<ul>
+		<li id="left_tab"><a href="#page1">Input</a></li>
+		<li id="right_tab"><a href="#page2">Result</a></li>
+	</ul>
+	<div id="page1">
+    <div id="repayment_detail">
+    	<div id="repayment_detail_enter">
+        	<div id="repayment_detail_left" class="common_input">
+    		<br />
+    		<label for="loan_amount">Loan amount</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$<input id="loan_amount" class="input" type="text" size="13"/>
+    		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label for="loan_year">Mortgage term&nbsp;&nbsp;</label><input id="loan_term" class="input" type="number" size="13" />years
+            <br />
+            <br />
+    		<label for="repayment_frequency">Repayment frequency</label>
+        	<select id="loan_repaymentFrequency" class="input">
+    			<option>Weekly</option>
+    			<option>Fortnightly</option>
+    			<option>Monthly</option>
+    		</select>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label> Normal Interest </label><input id="normal_interest" class="input" type="number" size="13">%
+    		</div><!-- End repayment_detail_left-->
+            <div id="repayment_detail_right" class="common_input">
+            <br />
+            <label> Monthly Income </label>&nbsp;&nbsp;&nbsp;&nbsp;$<input id="monthly_income" class="input" type="number" size="13"/>
+            <br /><br />
+			<label> Offset Interest &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input id="offset_interest" class="input" type="number" size="13">%
+            </div><!-- End repayment_detail_right-->
+     	</div><!-- End repayment_detail_enter -->
+    </div><!-- End repayment_detail-->
+		<form>
+ 		<div id="table1" class="input_table">
+ 			<table width="450" border="0px" cellspacing="0" cellpadding="4px" frame="box">
+			<tr>
+    			<th scope="col">Date</th>
+        		<th scope="col">Category</th>
+                <th scope="col">Frequency</th>
+        		<th scope="col">Amount</th>
+    		</tr>
+  			<script type="text/javascript">
+			for (var i=1;i<=10;i++){
+				// For date
+				document.write("<tr class='odd_row' align='center'><td><input type='text' id='input_date"+i+"' class='datepicker' name='date' size='9'> </td>");
+				// For category
+				document.write("<td><select id='input_category"+i+"' name='category'><option>Water bill</option><option>Phone bill</option><option>Electricity bill</option><option>Gas bill</option><option>Other</option></select></td>");
+				// For frequency
+				document.write("<td><select id='input_frequency"+i+"' name='frequency'> <option>Monthly</option><option>Quarterly</option><option>Yearly</option></select></td>");
+			
+				// For amount
+				document.write("<td>$<input id='input_amount"+i+"' type='text' name='amount' size='7'/></td></tr>");
+				
+			}
+			</script>
+			</table>
+		</div><!-- End table1 -->
+		<div id="table2" class="input_table">
+			<table width="450" border="0px" cellspacing="0" cellpadding="4px" frame="box">
+			<tr>
+    			<th scope="col">Date</th>
+        		<th scope="col">Category</th>
+                <th scope="col">Frequency</th>
+        		<th scope="col">Amount</th>
+    		</tr>
+  			<script type="text/javascript">
+			for (var i=11;i<=20;i++){
+				// For date
+				document.write("<tr class='odd_row' align='center'><td><input type='text' id='input_date"+i+"' class='datepicker' name='date' size='9'> </td>");
+				// For category
+				document.write("<td><select id='input_category"+i+"' name='category'><option>Water bill</option><option>Phone bill</option><option>Electricity bill</option><option>Gas bill</option><option>Other</option></select></td>");
+				// For frequency
+				document.write("<td><select id='input_frequency"+i+"' name='frequency'><option>Monthly</option><option>Quarterly</option><option>Yearly</option></select></td>");
+			
+				// For amount
+				document.write("<td>$<input id='input_amount"+i+"' type='text' name='amount' size='7'/></td></tr>");
+			}
+			</script>
+			</table>
+			<input type="submit" id="submit" name="Submit" value="Submit" tabindex="3" />
+		</form>
+		</div><!-- End table2 -->
+		
+	</div><!-- End page1 -->
+	<div id="page2">
+		<div id="result">
+        	<div id="placeholder">
+            </div><!-- End placeholder-->
+            <div id="display_option">
+            	<div id="result_selector"></div>
+            </div><!-- End display_option -->
+            <div id="repayment_result">
+            <br />
+            	<div id="period_repayment"></div>
+                <div id="yearly_spending"></div>
+                <div id="monthly_spending"></div>
+            </div><!-- End repayment_result -->
+            <div id="three_result">
+            	<div id="transaction_account">
+                <br />
+                	<div id="transaction_account_result"></div>
+                </div><!-- End transaction_account -->
+                <div id="offset_account">
+                <br />
+                	<div id="offset_account_result"></div>
+                </div><!-- End offset_account -->
+                <div id="offset_visa_account">
+                <br />
+                	<div id="offset_visa_account_result"></div>
+                </div><!-- End offset_visa_account -->
+            </div><!-- End three result -->
+        </div><!-- End result -->
+	</div><!-- End page2 -->
+</div><!-- End tabs -->
+
+</div><!-- End calculator -->
+
+
+
+<div class="demo-description" style="display: none; ">
+<p>Click tabs to swap between content that is broken into logical sections.</p>
+</div><!-- End demo-description -->
+</body>
+</html>
